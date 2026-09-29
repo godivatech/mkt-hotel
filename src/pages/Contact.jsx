@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { MapPin, Phone, Clock, Send, CheckCircle, Landmark, ShieldCheck } from 'lucide-react';
+import { MapPin, Phone, Clock, Send, CheckCircle, Landmark, ShieldCheck, AlertCircle } from 'lucide-react';
 import { hotelInfo, faqData } from '../data/hotelData';
 import SectionHeading from '../components/SectionHeading';
 import { saveEnquiry } from '../services/firebase';
@@ -14,17 +14,84 @@ export default function Contact() {
     dates: '',
     message: ''
   });
+  const [errors, setErrors] = useState({
+    name: '',
+    phone: '',
+    message: ''
+  });
+
+  const handleNameChange = (val) => {
+    setFormData((prev) => ({ ...prev, name: val }));
+    if (!val.trim()) {
+      setErrors((prev) => ({ ...prev, name: 'Full name is required' }));
+    } else if (!/^[a-zA-Z\s.']{2,50}$/.test(val.trim())) {
+      setErrors((prev) => ({ ...prev, name: 'Please enter a valid name (alphabets only, min 2 characters)' }));
+    } else {
+      setErrors((prev) => ({ ...prev, name: '' }));
+    }
+  };
+
+  const handlePhoneChange = (val) => {
+    const digitsOnly = val.replace(/\D/g, '').slice(0, 10);
+    setFormData((prev) => ({ ...prev, phone: digitsOnly }));
+
+    if (digitsOnly.length === 0) {
+      setErrors((prev) => ({ ...prev, phone: 'Mobile number is required' }));
+    } else if (digitsOnly.length < 10) {
+      setErrors((prev) => ({ ...prev, phone: `Please enter a 10-digit mobile number (${digitsOnly.length}/10 entered)` }));
+    } else if (!/^[6-9]/.test(digitsOnly)) {
+      setErrors((prev) => ({ ...prev, phone: 'Indian mobile numbers must start with 6, 7, 8, or 9' }));
+    } else {
+      setErrors((prev) => ({ ...prev, phone: '' }));
+    }
+  };
+
+  const handleMessageChange = (val) => {
+    setFormData((prev) => ({ ...prev, message: val }));
+    if (!val.trim()) {
+      setErrors((prev) => ({ ...prev, message: 'Message is required' }));
+    } else if (val.trim().length < 10) {
+      setErrors((prev) => ({ ...prev, message: 'Please describe your query in at least 10 characters' }));
+    } else {
+      setErrors((prev) => ({ ...prev, message: '' }));
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    let hasError = false;
+    const newErrors = { name: '', phone: '', message: '' };
+
+    if (!formData.name.trim() || !/^[a-zA-Z\s.']{2,50}$/.test(formData.name.trim())) {
+      newErrors.name = 'Please enter a valid full name (min 2 letters)';
+      hasError = true;
+    }
+
+    const cleanedPhone = formData.phone.replace(/\D/g, '');
+    if (cleanedPhone.length !== 10 || !/^[6-9]\d{9}$/.test(cleanedPhone)) {
+      newErrors.phone = 'Please enter a valid 10-digit mobile number starting with 6-9';
+      hasError = true;
+    }
+
+    if (!formData.message.trim() || formData.message.trim().length < 10) {
+      newErrors.message = 'Please describe your requirements in at least 10 characters';
+      hasError = true;
+    }
+
+    if (hasError) {
+      setErrors(newErrors);
+      return;
+    }
+
     setLoading(true);
 
     // Save to Firestore subcollection: websites/mkt-shanthi-nivas/enquiries
     await saveEnquiry({
-      name: formData.name,
-      phone: formData.phone,
-      dates: formData.dates || 'Not specified',
-      message: formData.message
+      name: formData.name.trim(),
+      phone: cleanedPhone,
+      dates: formData.dates.trim() || 'Not specified',
+      message: formData.message.trim()
     });
 
     setLoading(false);
@@ -134,24 +201,38 @@ export default function Contact() {
                       <label className="form-label">Full Name</label>
                       <input 
                         type="text" 
-                        className="input-control" 
-                        placeholder="Your name"
+                        className={`input-control ${errors.name ? 'has-error' : ''}`}
+                        placeholder="Your full name"
                         value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        onChange={(e) => handleNameChange(e.target.value)}
+                        onBlur={() => handleNameChange(formData.name)}
                         required
                       />
+                      {errors.name && (
+                        <div className="form-error-msg">
+                          <AlertCircle size={14} /> {errors.name}
+                        </div>
+                      )}
                     </div>
 
                     <div className="form-group">
                       <label className="form-label">Contact Phone</label>
                       <input 
                         type="tel" 
-                        className="input-control" 
-                        placeholder="Mobile number"
+                        inputMode="numeric"
+                        maxLength={10}
+                        className={`input-control ${errors.phone ? 'has-error' : ''}`}
+                        placeholder="10-digit mobile number"
                         value={formData.phone}
-                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                        onChange={(e) => handlePhoneChange(e.target.value)}
+                        onBlur={() => handlePhoneChange(formData.phone)}
                         required
                       />
+                      {errors.phone && (
+                        <div className="form-error-msg">
+                          <AlertCircle size={14} /> {errors.phone}
+                        </div>
+                      )}
                     </div>
 
                     <div className="form-group">
@@ -168,13 +249,19 @@ export default function Contact() {
                     <div className="form-group">
                       <label className="form-label">Your Message or Requirements</label>
                       <textarea 
-                        className="input-control" 
+                        className={`input-control ${errors.message ? 'has-error' : ''}`}
                         rows="3" 
-                        placeholder="Tell us your requirements, group size, or questions..."
+                        placeholder="Tell us your requirements, group size, or questions (min 10 characters)..."
                         value={formData.message}
-                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                        onChange={(e) => handleMessageChange(e.target.value)}
+                        onBlur={() => handleMessageChange(formData.message)}
                         required
                       ></textarea>
+                      {errors.message && (
+                        <div className="form-error-msg">
+                          <AlertCircle size={14} /> {errors.message}
+                        </div>
+                      )}
                     </div>
 
                     <button 

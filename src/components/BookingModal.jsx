@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { X, CheckCircle, Calendar, Users, Phone, User, ShieldCheck, ArrowRight } from 'lucide-react';
+import { X, CheckCircle, Calendar, Users, Phone, User, ShieldCheck, ArrowRight, AlertCircle } from 'lucide-react';
 import { roomsData, hotelInfo } from '../data/hotelData';
 import { saveBooking } from '../services/firebase';
 
+const getNextDayStr = (dateStr) => {
+  if (!dateStr) return '';
+  const d = new Date(dateStr);
+  d.setDate(d.getDate() + 1);
+  return d.toISOString().split('T')[0];
+};
+
 export default function BookingModal({ isOpen, onClose, initialData = {} }) {
   const today = new Date().toISOString().split('T')[0];
-  const tomorrow = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+  const tomorrow = getNextDayStr(today);
 
   const [step, setStep] = useState(1); // 1: details, 2: confirmed
   const [loading, setLoading] = useState(false);
@@ -16,6 +23,11 @@ export default function BookingModal({ isOpen, onClose, initialData = {} }) {
   const [guestPhone, setGuestPhone] = useState('');
   const [specialRequests, setSpecialRequests] = useState('');
   const [confirmationCode, setConfirmationCode] = useState('');
+
+  // Validation error states
+  const [nameError, setNameError] = useState('');
+  const [phoneError, setPhoneError] = useState('');
+  const [dateError, setDateError] = useState('');
 
   useEffect(() => {
     if (initialData.roomId) {
@@ -38,8 +50,77 @@ export default function BookingModal({ isOpen, onClose, initialData = {} }) {
   const gst = Math.round(totalPrice * 0.12);
   const finalAmount = totalPrice + gst;
 
+  // Validation handlers
+  const handleCheckInChange = (newDate) => {
+    setCheckIn(newDate);
+    setDateError('');
+    if (checkOut <= newDate) {
+      setCheckOut(getNextDayStr(newDate));
+    }
+  };
+
+  const handleCheckOutChange = (newDate) => {
+    setCheckOut(newDate);
+    if (newDate <= checkIn) {
+      setDateError('Check-out date must be after check-in date');
+    } else {
+      setDateError('');
+    }
+  };
+
+  const handleNameChange = (val) => {
+    setGuestName(val);
+    if (!val.trim()) {
+      setNameError('Primary guest name is required');
+    } else if (!/^[a-zA-Z\s.']{2,50}$/.test(val.trim())) {
+      setNameError('Please enter a valid name (alphabets only, min 2 characters)');
+    } else {
+      setNameError('');
+    }
+  };
+
+  const handlePhoneChange = (val) => {
+    // Strictly numbers only, max 10 digits
+    const digitsOnly = val.replace(/\D/g, '').slice(0, 10);
+    setGuestPhone(digitsOnly);
+
+    if (digitsOnly.length === 0) {
+      setPhoneError('Mobile number is required');
+    } else if (digitsOnly.length < 10) {
+      setPhoneError(`Please enter a 10-digit mobile number (${digitsOnly.length}/10 entered)`);
+    } else if (!/^[6-9]/.test(digitsOnly)) {
+      setPhoneError('Indian mobile numbers must start with 6, 7, 8, or 9');
+    } else {
+      setPhoneError('');
+    }
+  };
+
   const handleConfirmBooking = async (e) => {
     e.preventDefault();
+
+    let hasError = false;
+
+    // Validate Guest Name
+    if (!guestName.trim() || !/^[a-zA-Z\s.']{2,50}$/.test(guestName.trim())) {
+      setNameError('Please enter a valid guest name (alphabets only, min 2 characters)');
+      hasError = true;
+    }
+
+    // Validate Phone Number
+    const cleanedPhone = guestPhone.replace(/\D/g, '');
+    if (cleanedPhone.length !== 10 || !/^[6-9]\d{9}$/.test(cleanedPhone)) {
+      setPhoneError('Please enter a valid 10-digit mobile number starting with 6-9');
+      hasError = true;
+    }
+
+    // Validate Dates
+    if (checkOut <= checkIn) {
+      setDateError('Check-out date must be after check-in date');
+      hasError = true;
+    }
+
+    if (hasError) return;
+
     setLoading(true);
     const code = 'MKT-' + Math.floor(100000 + Math.random() * 900000);
     setConfirmationCode(code);
@@ -52,9 +133,9 @@ export default function BookingModal({ isOpen, onClose, initialData = {} }) {
       checkIn,
       checkOut,
       nights,
-      guestName,
-      guestPhone,
-      specialRequests: specialRequests || 'None',
+      guestName: guestName.trim(),
+      guestPhone: cleanedPhone,
+      specialRequests: specialRequests.trim() || 'None',
       roomRate: selectedRoom.price,
       totalAmount: finalAmount,
       tariffEstimate: totalPrice,
@@ -68,6 +149,9 @@ export default function BookingModal({ isOpen, onClose, initialData = {} }) {
 
   const handleResetAndClose = () => {
     setStep(1);
+    setNameError('');
+    setPhoneError('');
+    setDateError('');
     onClose();
   };
 
@@ -111,29 +195,36 @@ export default function BookingModal({ isOpen, onClose, initialData = {} }) {
               </div>
 
               {/* Date Inputs */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                <div className="form-group">
-                  <label className="form-label">Check-In Date</label>
-                  <input 
-                    type="date" 
-                    className="input-control" 
-                    value={checkIn}
-                    min={today}
-                    onChange={(e) => setCheckIn(e.target.value)}
-                    required
-                  />
+              <div>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                  <div className="form-group">
+                    <label className="form-label">Check-In Date</label>
+                    <input 
+                      type="date" 
+                      className={`input-control ${dateError ? 'has-error' : ''}`}
+                      value={checkIn}
+                      min={today}
+                      onChange={(e) => handleCheckInChange(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label className="form-label">Check-Out Date</label>
+                    <input 
+                      type="date" 
+                      className={`input-control ${dateError ? 'has-error' : ''}`}
+                      value={checkOut}
+                      min={getNextDayStr(checkIn) || today}
+                      onChange={(e) => handleCheckOutChange(e.target.value)}
+                      required
+                    />
+                  </div>
                 </div>
-                <div className="form-group">
-                  <label className="form-label">Check-Out Date</label>
-                  <input 
-                    type="date" 
-                    className="input-control" 
-                    value={checkOut}
-                    min={checkIn || today}
-                    onChange={(e) => setCheckOut(e.target.value)}
-                    required
-                  />
-                </div>
+                {dateError && (
+                  <div className="form-error-msg">
+                    <AlertCircle size={14} /> {dateError}
+                  </div>
+                )}
               </div>
 
               {/* Guest Details */}
@@ -142,23 +233,37 @@ export default function BookingModal({ isOpen, onClose, initialData = {} }) {
                   <label className="form-label">Primary Guest Name</label>
                   <input 
                     type="text" 
-                    className="input-control" 
+                    className={`input-control ${nameError ? 'has-error' : ''}`}
                     placeholder="e.g. Ramesh Sharma" 
                     value={guestName}
-                    onChange={(e) => setGuestName(e.target.value)}
+                    onChange={(e) => handleNameChange(e.target.value)}
+                    onBlur={() => handleNameChange(guestName)}
                     required
                   />
+                  {nameError && (
+                    <div className="form-error-msg">
+                      <AlertCircle size={14} /> {nameError}
+                    </div>
+                  )}
                 </div>
                 <div className="form-group">
                   <label className="form-label">Phone Number</label>
                   <input 
                     type="tel" 
-                    className="input-control" 
+                    inputMode="numeric"
+                    maxLength={10}
+                    className={`input-control ${phoneError ? 'has-error' : ''}`}
                     placeholder="10-digit mobile number" 
                     value={guestPhone}
-                    onChange={(e) => setGuestPhone(e.target.value)}
+                    onChange={(e) => handlePhoneChange(e.target.value)}
+                    onBlur={() => handlePhoneChange(guestPhone)}
                     required
                   />
+                  {phoneError && (
+                    <div className="form-error-msg">
+                      <AlertCircle size={14} /> {phoneError}
+                    </div>
+                  )}
                 </div>
               </div>
 

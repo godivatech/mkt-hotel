@@ -1,14 +1,27 @@
 import React, { useState } from 'react';
 import { Calendar, Users, ArrowRight } from 'lucide-react';
 
+const getNextDayStr = (dateStr) => {
+  if (!dateStr) return '';
+  const d = new Date(dateStr);
+  d.setDate(d.getDate() + 1);
+  return d.toISOString().split('T')[0];
+};
+
 export default function BookingBar({ onSearch, className = '' }) {
-  // Default to today + 2 days
   const today = new Date().toISOString().split('T')[0];
-  const nextDate = new Date(Date.now() + 2 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+  const nextDate = getNextDayStr(today);
 
   const [checkIn, setCheckIn] = useState(today);
   const [checkOut, setCheckOut] = useState(nextDate);
   const [guestOption, setGuestOption] = useState('2 Adults, 1 Room');
+
+  const handleCheckInChange = (newIn) => {
+    setCheckIn(newIn);
+    if (checkOut <= newIn) {
+      setCheckOut(getNextDayStr(newIn));
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -34,7 +47,7 @@ export default function BookingBar({ onSearch, className = '' }) {
               className="booking-input"
               value={checkIn}
               min={today}
-              onChange={(e) => setCheckIn(e.target.value)}
+              onChange={(e) => handleCheckInChange(e.target.value)}
               required
             />
           </div>
@@ -49,7 +62,7 @@ export default function BookingBar({ onSearch, className = '' }) {
               type="date" 
               className="booking-input"
               value={checkOut}
-              min={checkIn || today}
+              min={getNextDayStr(checkIn) || today}
               onChange={(e) => setCheckOut(e.target.value)}
               required
             />

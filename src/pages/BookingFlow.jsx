@@ -1,14 +1,22 @@
 import React, { useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { Calendar, Users, CheckCircle, ShieldCheck, Phone, ArrowRight, Bed } from 'lucide-react';
+import { Calendar, Users, CheckCircle, ShieldCheck, Phone, ArrowRight, Bed, AlertCircle } from 'lucide-react';
 import { roomsData, hotelInfo } from '../data/hotelData';
 import { saveBooking } from '../services/firebase';
 
+const getNextDayStr = (dateStr) => {
+  if (!dateStr) return '';
+  const d = new Date(dateStr);
+  d.setDate(d.getDate() + 1);
+  return d.toISOString().split('T')[0];
+};
+
 export default function BookingFlow() {
   const [searchParams] = useSearchParams();
+  const today = new Date().toISOString().split('T')[0];
   const initialRoom = searchParams.get('room') || 'deluxe-room';
-  const initialCheckIn = searchParams.get('checkIn') || new Date().toISOString().split('T')[0];
-  const initialCheckOut = searchParams.get('checkOut') || new Date(Date.now() + 2 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+  const initialCheckIn = searchParams.get('checkIn') || today;
+  const initialCheckOut = searchParams.get('checkOut') || getNextDayStr(initialCheckIn);
 
   const [selectedRoomId, setSelectedRoomId] = useState(initialRoom);
   const [checkIn, setCheckIn] = useState(initialCheckIn);
@@ -21,6 +29,11 @@ export default function BookingFlow() {
   const [bookingConfirmed, setBookingConfirmed] = useState(false);
   const [bookingCode, setBookingCode] = useState('');
 
+  // Validation error states
+  const [nameError, setNameError] = useState('');
+  const [phoneError, setPhoneError] = useState('');
+  const [dateError, setDateError] = useState('');
+
   const selectedRoom = roomsData.find(r => r.id === selectedRoomId) || roomsData[0];
 
   // Calculate nights
@@ -32,8 +45,76 @@ export default function BookingFlow() {
   const gst = Math.round(roomTotal * 0.12);
   const finalTotal = roomTotal + gst;
 
+  // Validation handlers
+  const handleCheckInChange = (newDate) => {
+    setCheckIn(newDate);
+    setDateError('');
+    if (checkOut <= newDate) {
+      setCheckOut(getNextDayStr(newDate));
+    }
+  };
+
+  const handleCheckOutChange = (newDate) => {
+    setCheckOut(newDate);
+    if (newDate <= checkIn) {
+      setDateError('Check-out date must be after check-in date');
+    } else {
+      setDateError('');
+    }
+  };
+
+  const handleNameChange = (val) => {
+    setGuestName(val);
+    if (!val.trim()) {
+      setNameError('Primary guest name is required');
+    } else if (!/^[a-zA-Z\s.']{2,50}$/.test(val.trim())) {
+      setNameError('Please enter a valid guest name (alphabets only, min 2 characters)');
+    } else {
+      setNameError('');
+    }
+  };
+
+  const handlePhoneChange = (val) => {
+    const digitsOnly = val.replace(/\D/g, '').slice(0, 10);
+    setGuestPhone(digitsOnly);
+
+    if (digitsOnly.length === 0) {
+      setPhoneError('Mobile number is required');
+    } else if (digitsOnly.length < 10) {
+      setPhoneError(`Please enter a 10-digit mobile number (${digitsOnly.length}/10 entered)`);
+    } else if (!/^[6-9]/.test(digitsOnly)) {
+      setPhoneError('Indian mobile numbers must start with 6, 7, 8, or 9');
+    } else {
+      setPhoneError('');
+    }
+  };
+
   const handleBookingSubmit = async (e) => {
     e.preventDefault();
+
+    let hasError = false;
+
+    // Validate Guest Name
+    if (!guestName.trim() || !/^[a-zA-Z\s.']{2,50}$/.test(guestName.trim())) {
+      setNameError('Please enter a valid guest name (alphabets only, min 2 characters)');
+      hasError = true;
+    }
+
+    // Validate Phone Number
+    const cleanedPhone = guestPhone.replace(/\D/g, '');
+    if (cleanedPhone.length !== 10 || !/^[6-9]\d{9}$/.test(cleanedPhone)) {
+      setPhoneError('Please enter a valid 10-digit mobile number starting with 6-9');
+      hasError = true;
+    }
+
+    // Validate Dates
+    if (checkOut <= checkIn) {
+      setDateError('Check-out date must be after check-in date');
+      hasError = true;
+    }
+
+    if (hasError) return;
+
     setLoading(true);
     const code = 'MKT-' + Math.floor(100000 + Math.random() * 900000);
     setBookingCode(code);
@@ -47,9 +128,9 @@ export default function BookingFlow() {
       checkOut,
       nights,
       guestsCount,
-      guestName,
-      guestPhone,
-      specialRequests: guestNotes || 'None',
+      guestName: guestName.trim(),
+      guestPhone: cleanedPhone,
+      specialRequests: guestNotes.trim() || 'None',
       roomRate: selectedRoom.price,
       totalAmount: finalTotal,
       tariffEstimate: roomTotal,
@@ -124,28 +205,36 @@ export default function BookingFlow() {
                 </div>
 
                 {/* Dates */}
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                  <div className="form-group">
-                    <label className="form-label">Check-In Date</label>
-                    <input 
-                      type="date" 
-                      className="input-control" 
-                      value={checkIn}
-                      onChange={(e) => setCheckIn(e.target.value)}
-                      required
-                    />
+                <div>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                    <div className="form-group">
+                      <label className="form-label">Check-In Date</label>
+                      <input 
+                        type="date" 
+                        className={`input-control ${dateError ? 'has-error' : ''}`}
+                        value={checkIn}
+                        min={today}
+                        onChange={(e) => handleCheckInChange(e.target.value)}
+                        required
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Check-Out Date</label>
+                      <input 
+                        type="date" 
+                        className={`input-control ${dateError ? 'has-error' : ''}`}
+                        value={checkOut}
+                        min={getNextDayStr(checkIn) || today}
+                        onChange={(e) => handleCheckOutChange(e.target.value)}
+                        required
+                      />
+                    </div>
                   </div>
-                  <div className="form-group">
-                    <label className="form-label">Check-Out Date</label>
-                    <input 
-                      type="date" 
-                      className="input-control" 
-                      value={checkOut}
-                      min={checkIn}
-                      onChange={(e) => setCheckOut(e.target.value)}
-                      required
-                    />
-                  </div>
+                  {dateError && (
+                    <div className="form-error-msg">
+                      <AlertCircle size={14} /> {dateError}
+                    </div>
+                  )}
                 </div>
 
                 {/* Guest Contact */}
@@ -154,23 +243,37 @@ export default function BookingFlow() {
                     <label className="form-label">Full Name of Primary Guest</label>
                     <input 
                       type="text" 
-                      className="input-control" 
+                      className={`input-control ${nameError ? 'has-error' : ''}`}
                       placeholder="Enter guest name" 
                       value={guestName}
-                      onChange={(e) => setGuestName(e.target.value)}
+                      onChange={(e) => handleNameChange(e.target.value)}
+                      onBlur={() => handleNameChange(guestName)}
                       required
                     />
+                    {nameError && (
+                      <div className="form-error-msg">
+                        <AlertCircle size={14} /> {nameError}
+                      </div>
+                    )}
                   </div>
                   <div className="form-group">
                     <label className="form-label">Mobile Number</label>
                     <input 
                       type="tel" 
-                      className="input-control" 
+                      inputMode="numeric"
+                      maxLength={10}
+                      className={`input-control ${phoneError ? 'has-error' : ''}`}
                       placeholder="10-digit mobile number" 
                       value={guestPhone}
-                      onChange={(e) => setGuestPhone(e.target.value)}
+                      onChange={(e) => handlePhoneChange(e.target.value)}
+                      onBlur={() => handlePhoneChange(guestPhone)}
                       required
                     />
+                    {phoneError && (
+                      <div className="form-error-msg">
+                        <AlertCircle size={14} /> {phoneError}
+                      </div>
+                    )}
                   </div>
                 </div>
 

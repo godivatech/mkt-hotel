@@ -17,16 +17,28 @@ export default function RoomDetail({ onOpenBooking }) {
   const [activeTab, setActiveTab] = useState('overview');
   const [lightboxIndex, setLightboxIndex] = useState(null);
 
-  // Availability inputs
   const today = new Date().toISOString().split('T')[0];
-  const tomorrow = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+  const getNextDayStr = (dateStr) => {
+    if (!dateStr) return '';
+    const d = new Date(dateStr);
+    d.setDate(d.getDate() + 1);
+    return d.toISOString().split('T')[0];
+  };
+  const tomorrow = getNextDayStr(today);
   const [checkIn, setCheckIn] = useState(today);
   const [checkOut, setCheckOut] = useState(tomorrow);
   const [guestCount, setGuestCount] = useState(`${room.guestsCount} Adults`);
 
+  const handleCheckInChange = (newIn) => {
+    setCheckIn(newIn);
+    if (checkOut <= newIn) {
+      setCheckOut(getNextDayStr(newIn));
+    }
+  };
+
   const handleBookingSubmit = (e) => {
     e.preventDefault();
-    onOpenBooking(room.id);
+    onOpenBooking(room.id, { checkIn, checkOut });
   };
 
   const amenityIcons = {
@@ -221,7 +233,7 @@ export default function RoomDetail({ onOpenBooking }) {
                     className="input-control" 
                     value={checkIn}
                     min={today}
-                    onChange={(e) => setCheckIn(e.target.value)}
+                    onChange={(e) => handleCheckInChange(e.target.value)}
                     required
                   />
                 </div>
@@ -232,7 +244,7 @@ export default function RoomDetail({ onOpenBooking }) {
                     type="date" 
                     className="input-control" 
                     value={checkOut}
-                    min={checkIn}
+                    min={getNextDayStr(checkIn) || today}
                     onChange={(e) => setCheckOut(e.target.value)}
                     required
                   />

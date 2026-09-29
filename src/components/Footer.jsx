@@ -94,10 +94,19 @@ export default function Footer({ onOpenBooking }) {
           </div>
           <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
             <span>93 Middle Street, Rameswaram</span>
-            <span>Pilgrim & Family Stay</span>
-            <Link to="/admin/login" style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.8rem', textDecoration: 'underline' }}>
-              Staff Login
-            </Link>
+            <span>
+              Design and Developed by{' '}
+              <a 
+                href="https://godivatech.com" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                style={{ color: '#DA9B5A', fontWeight: 600, textDecoration: 'none', transition: 'color 0.2s' }}
+                onMouseEnter={(e) => e.target.style.color = '#FFFFFF'}
+                onMouseLeave={(e) => e.target.style.color = '#DA9B5A'}
+              >
+                GodivaTech
+              </a>
+            </span>
           </div>
         </div>
       </div>

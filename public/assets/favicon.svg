@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <rect width="48" height="48" rx="10" fill="#006D6F"/>
+  <!-- Gopuram silhouette in gold -->
+  <path d="M24 7L21 11H27L24 7Z" fill="#DA9B5A"/>
+  <path d="M19 12H29V16H19V12Z" fill="#DA9B5A"/>
+  <path d="M17 17H31V22H17V17Z" fill="#DA9B5A"/>
+  <path d="M15 23H33V29H15V23Z" fill="#DA9B5A"/>
+  <path d="M13 30H35V37H13V30Z" fill="#DA9B5A"/>
+  <path d="M11 38H37V41H11V38Z" fill="#DA9B5A"/>
+  <!-- Central arched gateway -->
+  <path d="M21 41V33C21 31.3431 22.3431 30 24 30C25.6569 30 27 31.3431 27 33V41H21Z" fill="#006D6F"/>
+  <!-- Kalasams on top -->
+  <circle cx="24" cy="5" r="1.5" fill="#DA9B5A"/>
+  <circle cx="21" cy="6" r="1" fill="#DA9B5A"/>
+  <circle cx="27" cy="6" r="1" fill="#DA9B5A"/>
+</svg>

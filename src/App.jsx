@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import BookingModal from './components/BookingModal';
@@ -11,9 +11,14 @@ import Dining from './pages/Dining';
 import Gallery from './pages/Gallery';
 import Contact from './pages/Contact';
 import BookingFlow from './pages/BookingFlow';
+import AdminLogin from './pages/admin/AdminLogin';
+import AdminDashboard from './pages/admin/AdminDashboard';
 
 function AppContent() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith('/admin');
+
   const [bookingModalOpen, setBookingModalOpen] = useState(false);
   const [bookingInitialData, setBookingInitialData] = useState({});
 
@@ -23,7 +28,6 @@ function AppContent() {
   };
 
   const handleSearchBooking = (searchCriteria) => {
-    // Navigate to booking page with parameters
     const params = new URLSearchParams();
     if (searchCriteria.checkIn) params.set('checkIn', searchCriteria.checkIn);
     if (searchCriteria.checkOut) params.set('checkOut', searchCriteria.checkOut);
@@ -32,7 +36,7 @@ function AppContent() {
 
   return (
     <div className="site-wrapper">
-      <Navbar onOpenBooking={() => handleOpenBooking()} />
+      {!isAdminRoute && <Navbar onOpenBooking={() => handleOpenBooking()} />}
 
       <Routes>
         <Route 
@@ -72,16 +76,22 @@ function AppContent() {
           path="/booking" 
           element={<BookingFlow />} 
         />
+
+        {/* Management & Admin Routes */}
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin" element={<AdminDashboard />} />
       </Routes>
 
-      <Footer onOpenBooking={() => handleOpenBooking()} />
+      {!isAdminRoute && <Footer onOpenBooking={() => handleOpenBooking()} />}
 
       {/* Global Booking Modal */}
-      <BookingModal 
-        isOpen={bookingModalOpen} 
-        onClose={() => setBookingModalOpen(false)} 
-        initialData={bookingInitialData} 
-      />
+      {!isAdminRoute && (
+        <BookingModal 
+          isOpen={bookingModalOpen} 
+          onClose={() => setBookingModalOpen(false)} 
+          initialData={bookingInitialData} 
+        />
+      )}
     </div>
   );
 }

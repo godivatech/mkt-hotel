@@ -92,12 +92,12 @@ export default function Footer({ onOpenBooking }) {
           <div>
             © {new Date().getFullYear()} MKT Shanthi Nivas. All rights reserved.
           </div>
-          <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
             <span>93 Middle Street, Rameswaram</span>
             <span>Pilgrim & Family Stay</span>
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}>
-              Made with <Heart size={13} fill="#DA9B5A" color="#DA9B5A" /> for Rameswaram Yatris
-            </span>
+            <Link to="/admin/login" style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.8rem', textDecoration: 'underline' }}>
+              Staff Login
+            </Link>
           </div>
         </div>
       </div>

@@ -409,6 +409,36 @@ p {
   justify-content: center;
 }
 
+.brand-crest-img {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  flex-shrink: 0;
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.15));
+  transition: transform var(--transition-fast);
+}
+
+.brand-logo:hover .brand-crest-img {
+  transform: scale(1.05);
+}
+
+/* Stacked Logo (for Footer with emblem on top, words below) */
+.brand-logo-stacked {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.brand-logo-stacked .brand-crest-img {
+  width: 100px;
+  height: 100px;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.35));
+}
+
+.brand-logo-stacked .brand-text {
+  align-items: flex-start;
+}
+
 .brand-text {
   display: flex;
   flex-direction: column;
@@ -430,6 +460,20 @@ p {
   letter-spacing: 0.16em;
   color: var(--accent);
   text-transform: uppercase;
+}
+
+.brand-tagline {
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  font-weight: 700;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.brand-logo-stacked .brand-tagline {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  margin-top: -2px;
 }
 
 /* Desktop Navigation Links */

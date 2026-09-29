@@ -7,7 +7,7 @@ export default function Gallery() {
   const [activeCategory, setActiveCategory] = useState('All');
   const [lightboxIndex, setLightboxIndex] = useState(null);
 
-  const categories = ['All', 'Rooms', 'Dining', 'Temple', 'Nearby Places'];
+  const categories = ['All', 'Hotel & Reception', 'Rooms', 'Restrooms', 'Dining', 'Nearby Places'];
 
   const filteredItems = activeCategory === 'All' 
     ? galleryItems 
@@ -23,7 +23,7 @@ export default function Gallery() {
       <section className="page-hero-banner">
         <img 
           src="/assets/images/pamban-bridge.jpg" 
-          alt="Rameswaram Scenic Views" 
+          alt="MKT Shanthi Nivas Hotel Gallery Rameswaram" 
           className="page-hero-backdrop"
         />
         <div className="container page-hero-content">

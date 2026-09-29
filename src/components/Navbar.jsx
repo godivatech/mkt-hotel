@@ -25,7 +25,7 @@ export default function Navbar({ onOpenBooking }) {
   return (
     <header className={`navbar-wrapper ${scrolled ? 'scrolled' : ''}`}>
       <div className="container navbar-container">
-        <Logo />
+        <Logo taglineOnly={true} />
 
         {/* Desktop Navigation */}
         <nav className="nav-links" aria-label="Main Navigation">

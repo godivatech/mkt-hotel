@@ -301,7 +301,7 @@ export default function Contact() {
               {/* Photo preview of hotel exterior with verified location badge */}
               <div className="card" style={{ padding: '1.25rem' }}>
                 <div style={{ aspectRatio: '16/9', borderRadius: 'var(--radius-sm)', overflow: 'hidden', marginBottom: '1rem' }}>
-                  <img src="/assets/images/hotel-exterior.jpg" alt="MKT Shanthi Nivas Hotel Entrance" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <img src="/assets/images/mkt-exterior-day.png" alt="MKT Shanthi Nivas Hotel Entrance" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                   <div>

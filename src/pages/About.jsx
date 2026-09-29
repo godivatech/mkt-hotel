@@ -55,8 +55,8 @@ export default function About({ onOpenBooking }) {
             <div style={{ position: 'relative' }}>
               <div style={{ borderRadius: 'var(--radius-md)', overflow: 'hidden', boxShadow: 'var(--shadow-lg)' }}>
                 <img 
-                  src="/assets/images/hotel-exterior.jpg" 
-                  alt="MKT Shanthi Nivas Hotel Building" 
+                  src="/assets/images/mkt-reception.png" 
+                  alt="MKT Shanthi Nivas Grand Reception & Altar" 
                   style={{ width: '100%', height: 'auto', display: 'block' }}
                 />
               </div>

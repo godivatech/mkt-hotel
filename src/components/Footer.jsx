@@ -11,7 +11,7 @@ export default function Footer({ onOpenBooking }) {
         <div className="footer-grid">
           {/* Brand Info */}
           <div>
-            <Logo light={true} />
+            <Logo light={true} stacked={true} />
             <p className="footer-brand-desc">
               A peaceful, modern hotel in the sacred heart of Rameswaram. Providing clean, comfortable air-conditioned accommodation and pure vegetarian hospitality for pilgrims, families, and travelers.
             </p>

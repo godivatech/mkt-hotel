@@ -71,12 +71,12 @@ export const roomsData = [
     price: 2499,
     priceFormatted: "₹2,499",
     featured: true,
-    image: "/assets/images/room-deluxe.jpg",
+    image: "/assets/images/mkt-room-deluxe.png",
     gallery: [
-      "/assets/images/room-deluxe.jpg",
-      "/assets/images/room-executive.jpg",
-      "/assets/images/hotel-lobby.jpg",
-      "/assets/images/hotel-exterior.jpg"
+      "/assets/images/mkt-room-deluxe.png",
+      "/assets/images/mkt-room-executive.png",
+      "/assets/images/mkt-room-amenities.png",
+      "/assets/images/mkt-bathroom-shower.png"
     ],
     amenities: [
       "Air Conditioning",
@@ -109,12 +109,12 @@ export const roomsData = [
     price: 3199,
     priceFormatted: "₹3,199",
     featured: true,
-    image: "/assets/images/room-executive.jpg",
+    image: "/assets/images/mkt-room-executive.png",
     gallery: [
-      "/assets/images/room-executive.jpg",
-      "/assets/images/room-deluxe.jpg",
-      "/assets/images/room-suite.jpg",
-      "/assets/images/hotel-lobby.jpg"
+      "/assets/images/mkt-room-executive.png",
+      "/assets/images/mkt-room-amenities.png",
+      "/assets/images/mkt-room-mirror.png",
+      "/assets/images/mkt-bathroom-vanity.png"
     ],
     amenities: [
       "Air Conditioning",
@@ -142,18 +142,18 @@ export const roomsData = [
     tagline: "Spacious two-bed accommodation tailored for family yatras",
     capacity: "4 Guests",
     guestsCount: 4,
-    bedType: "2 King Beds",
+    bedType: "2 Double Beds",
     bedsCount: 2,
     size: "420 sq ft",
     price: 4499,
     priceFormatted: "₹4,499",
     featured: true,
-    image: "/assets/images/room-family-suite.jpg",
+    image: "/assets/images/mkt-room-family.png",
     gallery: [
-      "/assets/images/room-family-suite.jpg",
-      "/assets/images/room-suite.jpg",
-      "/assets/images/room-deluxe.jpg",
-      "/assets/images/hotel-exterior.jpg"
+      "/assets/images/mkt-room-family.png",
+      "/assets/images/mkt-room-suite.png",
+      "/assets/images/mkt-corridor.png",
+      "/assets/images/mkt-bathroom-shower.png"
     ],
     amenities: [
       "Air Conditioning",
@@ -166,7 +166,7 @@ export const roomsData = [
       "Spacious Luggage Area",
       "24/7 Hot Water"
     ],
-    overview: "Travelling with family or elderly parents for sacred rituals? Our Family Suite offers generous floor space, two king-sized beds with posture-friendly mattresses, abundant wardrobe room, and convenient seating so all family members can relax together in complete harmony.",
+    overview: "Travelling with family or elderly parents for sacred rituals? Our Family Suite offers generous floor space, two double beds with posture-friendly mattresses, abundant wardrobe room, and convenient seating so all family members can relax together in complete harmony.",
     policies: [
       "Check-in: 12:00 PM | Check-out: 11:00 AM",
       "Ideal for up to 4 adults and 2 children under 6 years",
@@ -181,18 +181,19 @@ export const roomsData = [
     tagline: "The premier signature suite with living lounge & refined decor",
     capacity: "4 Guests",
     guestsCount: 4,
-    bedType: "2 King Beds",
+    bedType: "2 Queen Beds",
     bedsCount: 2,
     size: "480 sq ft",
     price: 5499,
     priceFormatted: "₹5,499",
     featured: true,
-    image: "/assets/images/room-suite.jpg",
+    image: "/assets/images/mkt-room-suite.png",
     gallery: [
-      "/assets/images/room-suite.jpg",
-      "/assets/images/room-family-suite.jpg",
-      "/assets/images/hotel-lobby.jpg",
-      "/assets/images/room-deluxe.jpg"
+      "/assets/images/mkt-room-suite.png",
+      "/assets/images/mkt-waiting-lounge.png",
+      "/assets/images/mkt-room-family.png",
+      "/assets/images/mkt-bathroom-wc.png",
+      "/assets/images/mkt-bathroom-vanity.png"
     ],
     amenities: [
       "Air Conditioning",
@@ -305,18 +306,26 @@ export const testimonialsData = [
 ];
 
 export const galleryItems = [
-  { id: 1, title: "Ramanathaswamy Temple at Dusk", category: "Temple", image: "/assets/images/hero-temple.jpg" },
-  { id: 2, title: "Deluxe Bedroom Interior", category: "Rooms", image: "/assets/images/room-deluxe.jpg" },
-  { id: 3, title: "Executive Room with Workstation", category: "Rooms", image: "/assets/images/room-executive.jpg" },
-  { id: 4, title: "Family Suite Two Beds", category: "Rooms", image: "/assets/images/room-family-suite.jpg" },
-  { id: 5, title: "Signature Suite Master Bedroom", category: "Rooms", image: "/assets/images/room-suite.jpg" },
-  { id: 6, title: "Pamban Sea Bridge & Railway", category: "Nearby Places", image: "/assets/images/pamban-bridge.jpg" },
-  { id: 7, title: "Dhanushkodi Coastal Sandbar", category: "Nearby Places", image: "/assets/images/dhanushkodi.jpg" },
-  { id: 8, title: "Hotel Exterior Facade", category: "Rooms", image: "/assets/images/hotel-exterior.jpg" },
-  { id: 9, title: "Warm Front Desk & Reception", category: "Rooms", image: "/assets/images/hotel-lobby.jpg" },
-  { id: 10, title: "South Indian Breakfast Tiffin", category: "Dining", image: "/assets/images/dining-spread.jpg" },
-  { id: 11, title: "Traditional Vegetarian Thali", category: "Dining", image: "/assets/images/dining-thali.jpg" },
-  { id: 12, title: "Vegetarian Dining Hall", category: "Dining", image: "/assets/images/restaurant-interior.jpg" }
+  { id: 1, title: "MKT Shanthi Nivas Exterior Facade", category: "Hotel & Reception", image: "/assets/images/mkt-exterior-day.png" },
+  { id: 2, title: "Illuminated Golden Night Facade", category: "Hotel & Reception", image: "/assets/images/mkt-exterior-night.png" },
+  { id: 3, title: "Grand Reception & Murugan Sanctum", category: "Hotel & Reception", image: "/assets/images/mkt-reception.png" },
+  { id: 4, title: "Guest Waiting Lounge", category: "Hotel & Reception", image: "/assets/images/mkt-waiting-lounge.png" },
+  { id: 5, title: "Polished Guest Floor Marble Corridor", category: "Hotel & Reception", image: "/assets/images/mkt-corridor.png" },
+  { id: 6, title: "Deluxe King Bedroom with Ambient Glow", category: "Rooms", image: "/assets/images/mkt-room-deluxe.png" },
+  { id: 7, title: "Executive Room Entrance & King Bed", category: "Rooms", image: "/assets/images/mkt-room-executive.png" },
+  { id: 8, title: "Family Quad Suite Two Double Beds", category: "Rooms", image: "/assets/images/mkt-room-family.png" },
+  { id: 9, title: "Signature Suite Swan Towel Art", category: "Rooms", image: "/assets/images/mkt-room-suite.png" },
+  { id: 10, title: "Room Amenities, TV & Work Desk", category: "Rooms", image: "/assets/images/mkt-room-amenities.png" },
+  { id: 11, title: "Full-Length Backlit Vanity Mirror", category: "Rooms", image: "/assets/images/mkt-room-mirror.png" },
+  { id: 12, title: "Sparkling Restroom & Rain Shower", category: "Restrooms", image: "/assets/images/mkt-bathroom-shower.png" },
+  { id: 13, title: "Granite Vanity with Smart Touch Mirror", category: "Restrooms", image: "/assets/images/mkt-bathroom-vanity.png" },
+  { id: 14, title: "Modern Restroom with Wall-Hung WC", category: "Restrooms", image: "/assets/images/mkt-bathroom-wc.png" },
+  { id: 15, title: "Traditional South Indian Breakfast Tiffin", category: "Dining", image: "/assets/images/dining-spread.jpg" },
+  { id: 16, title: "Wholesome South Indian Vegetarian Thali", category: "Dining", image: "/assets/images/dining-thali.jpg" },
+  { id: 17, title: "Vegetarian Dining Hall", category: "Dining", image: "/assets/images/restaurant-interior.jpg" },
+  { id: 18, title: "Ramanathaswamy Temple at Dusk", category: "Nearby Places", image: "/assets/images/hero-temple.jpg" },
+  { id: 19, title: "Iconic Pamban Cantilever Sea Bridge", category: "Nearby Places", image: "/assets/images/pamban-bridge.jpg" },
+  { id: 20, title: "Dhanushkodi Coastal Sands & Beach", category: "Nearby Places", image: "/assets/images/dhanushkodi.jpg" }
 ];
 
 export const faqData = [

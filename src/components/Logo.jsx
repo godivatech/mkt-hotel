@@ -5,7 +5,8 @@ export default function Logo({
   light = false, 
   stacked = false, 
   taglineOnly = false,
-  className = '' 
+  className = '',
+  logoSrc = '/assets/images/mkt-logo-2.png'
 }) {
   const goldColor = '#DA9B5A';
   const textColor = light ? '#FFFFFF' : '#1F2937';
@@ -18,7 +19,7 @@ export default function Logo({
       aria-label="MKT Shanthi Nivas Homepage"
     >
       <img 
-        src="/assets/images/mkt-logo.png" 
+        src={logoSrc} 
         alt="MKT Shanthi Nivas Emblem" 
         className="brand-crest-img"
       />

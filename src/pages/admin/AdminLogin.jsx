@@ -23,8 +23,8 @@ export default function AdminLogin() {
     setError('');
 
     // Verification against requested admin credentials
-    const adminEmail = 'ajithkannan.ag@gmail.com';
-    const adminPass = 'ajithyaasaf';
+    const adminEmail = 'admin@gmail.com';
+    const adminPass = 'admin123';
 
     if (email.trim().toLowerCase() === adminEmail && password === adminPass) {
       localStorage.setItem('mkt_admin_logged_in', 'true');

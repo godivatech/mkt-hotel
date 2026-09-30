@@ -23,19 +23,16 @@ export default function AdminLogin() {
     setError('');
 
     // Verification against requested admin credentials
-    if (email.trim().toLowerCase() === 'admin@gmail.com' && password === 'admin123') {
+    const adminEmail = 'ajithkannan.ag@gmail.com';
+    const adminPass = 'ajithyaasaf';
+
+    if (email.trim().toLowerCase() === adminEmail && password === adminPass) {
       localStorage.setItem('mkt_admin_logged_in', 'true');
       localStorage.setItem('mkt_admin_email', email);
       navigate('/admin');
     } else {
-      setError('Invalid credentials. Use admin@gmail.com / admin123');
+      setError('Invalid credentials.');
     }
-  };
-
-  const handleQuickFill = () => {
-    setEmail('admin@gmail.com');
-    setPassword('admin123');
-    setError('');
   };
 
   return (
@@ -108,17 +105,7 @@ export default function AdminLogin() {
             </div>
           </div>
 
-          {/* Quick fill helper */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.8rem' }}>
-            <span style={{ color: 'var(--text-muted)' }}>Demo: admin@gmail.com / admin123</span>
-            <button 
-              type="button" 
-              onClick={handleQuickFill}
-              style={{ color: 'var(--primary)', fontWeight: 600, textDecoration: 'underline' }}
-            >
-              Fill Credentials
-            </button>
-          </div>
+
 
           <button type="submit" className="btn btn-primary btn-full btn-lg" style={{ marginTop: '0.5rem' }}>
             <ShieldCheck size={18} />

@@ -3,11 +3,13 @@ import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import BookingModal from './components/BookingModal';
+import WhatsAppWidget from './components/WhatsAppWidget';
 import Home from './pages/Home';
 import Rooms from './pages/Rooms';
 import RoomDetail from './pages/RoomDetail';
 import About from './pages/About';
-import Dining from './pages/Dining';
+// import Dining from './pages/Dining';
+import Services from './pages/Services';
 import Gallery from './pages/Gallery';
 import Contact from './pages/Contact';
 import BookingFlow from './pages/BookingFlow';
@@ -60,9 +62,13 @@ function AppContent() {
           path="/about" 
           element={<About onOpenBooking={handleOpenBooking} />} 
         />
-        <Route 
+        {/* <Route 
           path="/dining" 
           element={<Dining onOpenBooking={handleOpenBooking} />} 
+        /> */}
+        <Route 
+          path="/services" 
+          element={<Services onOpenBooking={handleOpenBooking} />} 
         />
         <Route 
           path="/gallery" 
@@ -92,6 +98,8 @@ function AppContent() {
           initialData={bookingInitialData} 
         />
       )}
+      {/* Floating WhatsApp Widget */}
+      {!isAdminRoute && <WhatsAppWidget />}
     </div>
   );
 }

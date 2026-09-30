@@ -1,4 +1,5 @@
 @import './design-tokens.css';
+@import './services.css';
 
 /* -------------------------------------------------------------
    RESET & BASE STYLES
@@ -1820,5 +1821,63 @@ p {
 @media (max-width: 480px) {
   .gallery-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+/* -------------------------------------------------------------
+   WHATSAPP FLOATING BUTTON
+------------------------------------------------------------- */
+.whatsapp-float-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #25D366;
+  color: #FFFFFF;
+  padding: 10px 18px;
+  border-radius: 50px;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.45);
+  text-decoration: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.whatsapp-float-btn:hover {
+  background-color: #20BD5A;
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 6px 24px rgba(37, 211, 102, 0.6);
+  color: #FFFFFF;
+}
+
+.whatsapp-float-label {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+  text-align: left;
+}
+
+.whatsapp-float-label strong {
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.whatsapp-float-label small {
+  font-size: 0.75rem;
+  opacity: 0.95;
+  font-weight: 500;
+}
+
+@media (max-width: 640px) {
+  .whatsapp-float-btn {
+    bottom: 20px;
+    right: 16px;
+    padding: 12px;
+    border-radius: 50%;
+  }
+  .whatsapp-float-label {
+    display: none;
   }
 }

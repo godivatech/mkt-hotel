@@ -2,7 +2,7 @@
 // Verified Business Information:
 // Business Name: MKT Shanthi Nivas
 // Address: 93 Middle Street, Rameswaram, Tamil Nadu 623526
-// Phone: 094420 49359
+// Phone: +91 83002 36666 / 04573-223666
 
 export const hotelInfo = {
   name: "MKT Shanthi Nivas",
@@ -19,8 +19,15 @@ export const hotelInfo = {
     landmark: "Near Ramanathaswamy Temple (East & North Gate proximity)",
     mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3936.560647895123!2d79.314811!3d9.288223!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b01b3a5a415a77b%3A0x6b1e5a51a8d0526e!2sMiddle%20St%2C%20Rameswaram%2C%20Tamil%20Nadu%20623526!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
   },
-  phone: "094420 49359",
-  phoneFormatted: "+91 94420 49359",
+  phone: "83002 36666",
+  phoneFormatted: "+91 83002 36666",
+  phoneTel: "+918300236666",
+  landline: "04573-223666",
+  landlineFormatted: "04573-223666",
+  landlineTel: "04573223666",
+  whatsapp: "83002 36666",
+  whatsappFormatted: "+91 83002 36666",
+  whatsappUrl: "https://wa.me/918300236666?text=Hello%20MKT%20Shanthi%20Nivas%2C%20I%20would%20like%20to%20enquire%20about%20room%20booking.",
   checkInTime: "12:00 PM",
   checkOutTime: "11:00 AM",
   benefits: [
@@ -94,45 +101,6 @@ export const roomsData = [
       "Government photo ID required at check-in for all adult guests",
       "100% Non-smoking room environment",
       "Early check-in subject to room availability upon request"
-    ]
-  },
-  {
-    id: "executive-room",
-    name: "Executive Room",
-    slug: "executive-room",
-    tagline: "Enhanced comfort with dedicated workstation and cozy seating",
-    capacity: "2 Guests",
-    guestsCount: 2,
-    bedType: "1 King Bed",
-    bedsCount: 1,
-    size: "280 sq ft",
-    price: 3199,
-    priceFormatted: "₹3,199",
-    featured: true,
-    image: "/assets/images/mkt-room-executive.png",
-    gallery: [
-      "/assets/images/mkt-room-executive.png",
-      "/assets/images/mkt-room-amenities.png",
-      "/assets/images/mkt-room-mirror.png",
-      "/assets/images/mkt-bathroom-vanity.png"
-    ],
-    amenities: [
-      "Air Conditioning",
-      "Free WiFi",
-      "Television",
-      "Attached Bathroom",
-      "Work Desk & Chair",
-      "Complimentary Water",
-      "Daily Housekeeping",
-      "Tea/Coffee Maker",
-      "24/7 Hot Water"
-    ],
-    overview: "Designed for discerning travelers and pilgrims seeking extra room and functionality. The Executive Room features an expansive king bed, a dedicated ergonomic work area, modern flat-screen TV with multi-lingual channels, and large windows offering natural sunlight.",
-    policies: [
-      "Check-in: 12:00 PM | Check-out: 11:00 AM",
-      "Government photo ID required at check-in",
-      "Extra bed available on request at nominal charge",
-      "100% Non-smoking property"
     ]
   },
   {
@@ -347,6 +315,6 @@ export const faqData = [
   },
   {
     q: "How can I book or enquire about room availability?",
-    a: "You can book directly on this website using our availability checker, or call our direct reception desk at 094420 49359 for immediate assistance."
+    a: "You can book directly on this website using our availability checker, chat with us on WhatsApp at +91 83002 36666, or call our reception desk directly at 83002 36666 / 04573-223666 for immediate assistance."
   }
 ];

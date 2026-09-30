@@ -1,0 +1,954 @@
+/* ==========================================================================
+   SERVICES PAGE - GENEROUS & BALANCED TYPOGRAPHY SPECIFICATION
+   Matches site-wide scale and elevates visual aesthetics
+   ========================================================================== */
+
+.services-exact-page {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  color: #1e293b;
+  font-family: var(--font-body, 'Poppins', sans-serif);
+}
+
+.services-exact-container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* 1. HERO SECTION */
+.services-exact-hero {
+  position: relative;
+  background-color: #0b1e22;
+  background-image: url('/assets/images/services/hero_bg.jpg');
+  background-size: cover;
+  background-position: center right;
+  background-repeat: no-repeat;
+  padding: 85px 0 100px 0;
+  overflow: hidden;
+}
+
+.services-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(10, 20, 22, 0.95) 0%,
+    rgba(10, 20, 22, 0.86) 35%,
+    rgba(10, 20, 22, 0.45) 65%,
+    rgba(10, 20, 22, 0.15) 100%
+  );
+  z-index: 1;
+}
+
+.hero-layout-flex {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 48px;
+}
+
+/* Left Hero Typography */
+.hero-text-block {
+  flex: 1;
+  max-width: 620px;
+}
+
+.services-eyebrow-hero {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  color: #d4a962;
+  text-transform: uppercase;
+  display: inline-block;
+  margin-bottom: 14px;
+}
+
+.services-hero-heading {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2.4rem, 4vw, 3.3rem);
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.18;
+  letter-spacing: -0.015em;
+  margin-bottom: 18px;
+}
+
+.services-hero-desc {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  max-width: 520px;
+  margin-bottom: 26px;
+}
+
+/* Breadcrumb */
+.services-breadcrumb-exact {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.services-breadcrumb-exact a {
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.services-breadcrumb-exact a:hover {
+  color: #ffffff;
+}
+
+.breadcrumb-separator {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.85rem;
+}
+
+.breadcrumb-current {
+  color: #ffffff;
+  font-weight: 500;
+}
+
+/* Right Floating Form Card (Plan Your Visit) */
+.hero-form-wrapper {
+  flex-shrink: 0;
+}
+
+.exact-plan-card {
+  width: 380px;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 28px 26px 24px 26px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25), 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.plan-card-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.55rem;
+  font-weight: 600;
+  color: #122b2f;
+  margin-bottom: 6px;
+  line-height: 1.25;
+}
+
+.plan-card-subtitle {
+  font-size: 0.88rem;
+  color: #64748b;
+  line-height: 1.5;
+  margin-bottom: 18px;
+}
+
+.plan-card-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.field-group {
+  position: relative;
+  width: 100%;
+}
+
+.field-icon-left {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+  pointer-events: none;
+}
+
+.field-group input,
+.field-group select {
+  width: 100%;
+  height: 46px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 0.92rem;
+  padding: 0 14px 0 42px;
+  color: #1e293b;
+  background: #ffffff;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  font-family: inherit;
+}
+
+.field-group input::placeholder {
+  color: #94a3b8;
+  font-size: 0.92rem;
+}
+
+.field-group input:focus,
+.field-group select:focus {
+  border-color: #0c4a4e;
+  box-shadow: 0 0 0 3px rgba(12, 74, 78, 0.12);
+}
+
+.select-field-group select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-left: 14px;
+  padding-right: 36px;
+  cursor: pointer;
+  color: #475569;
+}
+
+.field-icon-right {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #64748b;
+  pointer-events: none;
+}
+
+.form-feedback-error {
+  font-size: 0.85rem;
+  color: #e11d48;
+  background: #ffe4e6;
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+
+.form-feedback-success {
+  font-size: 0.85rem;
+  color: #047857;
+  background: #d1fae5;
+  padding: 8px 12px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-send-enquiry {
+  width: 100%;
+  height: 46px;
+  background: #0c4a4e;
+  color: #ffffff;
+  font-size: 0.98rem;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: background-color 0.2s, transform 0.1s;
+  margin-top: 4px;
+}
+
+.btn-send-enquiry:hover {
+  background: #08373b;
+}
+
+.btn-send-enquiry:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Immediate Assistance Box inside Form Card */
+.immediate-support-box {
+  background: #fbf6ee;
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-top: 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.support-badge-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #f4ebd9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9a7332;
+  flex-shrink: 0;
+}
+
+.support-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.support-heading-text {
+  font-size: 0.82rem;
+  color: #64748b;
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+.support-main-phone {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1e293b;
+  line-height: 1.3;
+  text-decoration: none;
+  letter-spacing: 0.3px;
+  margin: 2px 0;
+}
+
+.support-main-phone:hover {
+  color: #0c4a4e;
+}
+
+.support-sub-text {
+  font-size: 0.78rem;
+  color: #94a3b8;
+  line-height: 1.2;
+}
+
+/* 2. OVERLAPPING TABS BAR (7 ITEMS) */
+.services-tabs-shelf {
+  margin-top: -46px;
+  position: relative;
+  z-index: 15;
+  margin-bottom: 40px;
+}
+
+.tabs-shelf-inner {
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+  padding: 8px 12px;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  border: 1px solid #f1f5f9;
+}
+
+.shelf-tab-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 10px;
+  border-radius: 10px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: #475569;
+  transition: all 0.2s ease;
+  gap: 8px;
+}
+
+.shelf-tab-item .tab-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+}
+
+.shelf-tab-item .tab-label-text {
+  font-size: 0.92rem;
+  font-weight: 500;
+  text-align: center;
+  white-space: nowrap;
+  color: inherit;
+}
+
+.shelf-tab-item:hover {
+  background: #f8fafc;
+  color: #0c4a4e;
+}
+
+.shelf-tab-item.active {
+  background: #fbf5e8;
+  color: #9a7332;
+}
+
+.shelf-tab-item.active .tab-label-text {
+  font-weight: 600;
+}
+
+/* 3. HOW WE CAN HELP YOU */
+.how-help-section {
+  padding: 30px 0 50px 0;
+}
+
+.help-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 24px;
+  gap: 28px;
+}
+
+.help-title-col {
+  flex-shrink: 0;
+}
+
+.eyebrow-accent {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: #9a7332;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.help-main-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2rem, 3.2vw, 2.5rem);
+  font-weight: 600;
+  color: #122b2f;
+  line-height: 1.2;
+}
+
+.help-desc-col {
+  display: flex;
+  align-items: center;
+  max-width: 680px;
+}
+
+.help-desc-text {
+  font-size: 0.98rem;
+  color: #64748b;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* 6 Micro Cards */
+.services-six-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(190px, 1fr));
+  gap: 16px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  padding-bottom: 8px;
+}
+
+.services-six-grid::-webkit-scrollbar {
+  display: none;
+}
+
+.service-micro-card {
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #edf2f7;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+}
+
+.service-micro-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+  border-color: #cbd5e1;
+}
+
+.micro-card-media {
+  height: 140px;
+  width: 100%;
+  overflow: hidden;
+  background: #f1f5f9;
+}
+
+.micro-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.service-micro-card:hover .micro-card-media img {
+  transform: scale(1.06);
+}
+
+.micro-card-body {
+  padding: 16px 14px 18px 14px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.micro-card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.micro-header-icon {
+  color: #0c4a4e;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.micro-header-title {
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: #1e293b;
+  line-height: 1.3;
+}
+
+.micro-card-desc {
+  font-size: 0.88rem;
+  color: #64748b;
+  line-height: 1.5;
+  margin-bottom: 14px;
+  flex: 1;
+}
+
+.micro-card-link {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #0c4a4e;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: color 0.2s;
+}
+
+.micro-card-link:hover {
+  color: #b8863b;
+}
+
+/* 4. TEMPLE GUIDANCE & POPULAR PACKAGES (SPLIT ROW) */
+.guidance-packages-split-section {
+  padding: 20px 0 50px 0;
+}
+
+.split-layout-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 24px;
+  align-items: stretch;
+}
+
+/* Left: Temple Guidance Banner Card */
+.temple-guidance-card {
+  background: #fbf8f2;
+  border: 1px solid #f1eae0;
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+}
+
+.guidance-image-side {
+  width: 38%;
+  flex-shrink: 0;
+}
+
+.guidance-image-side img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  min-height: 330px;
+}
+
+.guidance-content-side {
+  width: 62%;
+  padding: 28px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+
+.guidance-watermark-bg {
+  position: absolute;
+  right: -10px;
+  bottom: -15px;
+  pointer-events: none;
+  opacity: 0.18;
+}
+
+.guidance-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.45rem, 2vw, 1.85rem);
+  font-weight: 600;
+  color: #122b2f;
+  line-height: 1.25;
+  margin: 4px 0 10px 0;
+}
+
+.guidance-paragraph {
+  font-size: 0.95rem;
+  color: #64748b;
+  line-height: 1.55;
+  margin-bottom: 20px;
+}
+
+.guidance-features-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 22px;
+}
+
+.g-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+}
+
+.g-icon-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.g-item-label {
+  font-size: 0.86rem;
+  font-weight: 500;
+  color: #334155;
+  line-height: 1.3;
+}
+
+.btn-guidance-gold {
+  background: #b58238;
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 8px;
+  height: 44px;
+  padding: 0 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  width: fit-content;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.btn-guidance-gold:hover {
+  background: #9e6f2b;
+}
+
+/* Right: Popular Tour Packages */
+.popular-packages-container {
+  background: #ffffff;
+  border: 1px solid #edf2f7;
+  border-radius: 16px;
+  padding: 24px 24px 26px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+}
+
+.popular-packages-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 16px;
+}
+
+.eyebrow-packages {
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  color: #64748b;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.popular-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.4rem, 1.8vw, 1.7rem);
+  font-weight: 600;
+  color: #122b2f;
+}
+
+.view-all-packages-link {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #0c4a4e;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: color 0.2s;
+}
+
+.view-all-packages-link:hover {
+  color: #b8863b;
+}
+
+.popular-cards-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  align-items: stretch;
+}
+
+.mini-pkg-card {
+  border: 1px solid #edf2f7;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  height: 100%;
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.mini-pkg-card:hover {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  border-color: #cbd5e1;
+}
+
+.mini-pkg-media {
+  height: 100px;
+  overflow: hidden;
+  background: #f1f5f9;
+  flex-shrink: 0;
+}
+
+.mini-pkg-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.mini-pkg-body {
+  padding: 14px 12px 14px 12px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.mini-pkg-title {
+  font-size: 0.94rem;
+  font-weight: 600;
+  color: #1e293b;
+  line-height: 1.35;
+  margin-bottom: 8px;
+  white-space: normal;
+  min-height: 44px;
+}
+
+.mini-pkg-meta-row {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 0.8rem;
+  color: #64748b;
+  margin-bottom: 14px;
+  min-height: 60px;
+}
+
+.meta-badge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.btn-enquire-teal {
+  width: 100%;
+  height: 36px;
+  background: #0c4a4e;
+  color: #ffffff;
+  font-size: 0.86rem;
+  font-weight: 600;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: auto;
+  transition: background-color 0.2s;
+}
+
+.btn-enquire-teal:hover {
+  background: #08373b;
+}
+
+/* 5. BOTTOM CTA BANNER */
+.services-bottom-cta-exact {
+  padding: 15px 0 60px 0;
+}
+
+.cta-banner-card {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  background: url('/assets/images/services/cta_pamban.jpg') center 45%/cover no-repeat;
+  min-height: 130px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.cta-banner-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(8, 48, 52, 0.95) 0%,
+    rgba(8, 48, 52, 0.8) 45%,
+    rgba(8, 48, 52, 0.25) 80%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+  z-index: 1;
+}
+
+.cta-banner-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 28px 45px;
+  gap: 24px;
+}
+
+.cta-banner-heading {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.6rem, 2.4vw, 2.1rem);
+  font-weight: 500;
+  color: #ffffff;
+  line-height: 1.25;
+  margin-bottom: 6px;
+}
+
+.cta-banner-sub {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.btn-contact-gold {
+  background: #b8863b;
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 12px 26px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.2s;
+  flex-shrink: 0;
+}
+
+.btn-contact-gold:hover {
+  background: #a1722d;
+}
+
+/* ==========================================================================
+   RESPONSIVE ADAPTATIONS
+   ========================================================================== */
+
+@media (max-width: 1200px) {
+  .services-six-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .split-layout-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tabs-shelf-inner {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .hero-layout-flex {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-form-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
+  .exact-plan-card {
+    width: 100%;
+    max-width: 480px;
+  }
+
+  .services-tabs-shelf {
+    margin-top: 24px;
+  }
+
+  .help-section-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .popular-cards-row {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .cta-banner-content {
+    flex-direction: column;
+    text-align: center;
+    padding: 30px 24px;
+  }
+
+  .cta-sub-break {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .services-hero-heading {
+    font-size: 32px;
+  }
+
+  .tabs-shelf-inner {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .services-six-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .temple-guidance-card {
+    flex-direction: column;
+  }
+
+  .guidance-image-side {
+    width: 100%;
+    height: 220px;
+  }
+
+  .guidance-content-side {
+    width: 100%;
+    padding: 22px 20px;
+  }
+
+  .guidance-features-row {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .popular-cards-row {
+    grid-template-columns: 1fr;
+  }
+}

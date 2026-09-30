@@ -35,8 +35,11 @@ export default function Navbar({ onOpenBooking }) {
           <NavLink to="/rooms" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
             Rooms
           </NavLink>
-          <NavLink to="/dining" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
+          {/* <NavLink to="/dining" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
             Dining
+          </NavLink> */}
+          <NavLink to="/services" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
+            Services
           </NavLink>
           <NavLink to="/gallery" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
             Gallery
@@ -81,8 +84,11 @@ export default function Navbar({ onOpenBooking }) {
         <NavLink to="/rooms" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
           Rooms
         </NavLink>
-        <NavLink to="/dining" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
+        {/* <NavLink to="/dining" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
           Dining
+        </NavLink> */}
+        <NavLink to="/services" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
+          Services
         </NavLink>
         <NavLink to="/gallery" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
           Gallery

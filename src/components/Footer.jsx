@@ -31,7 +31,8 @@ export default function Footer({ onOpenBooking }) {
             <div className="footer-links-list">
               <Link to="/" className="footer-link">Home</Link>
               <Link to="/rooms" className="footer-link">Our Rooms</Link>
-              <Link to="/dining" className="footer-link">Pure Veg Dining</Link>
+              {/* <Link to="/dining" className="footer-link">Pure Veg Dining</Link> */}
+              <Link to="/services" className="footer-link">Our Services</Link>
               <Link to="/gallery" className="footer-link">Photo Gallery</Link>
               <Link to="/about" className="footer-link">About MKT</Link>
               <Link to="/contact" className="footer-link">Contact & Directions</Link>

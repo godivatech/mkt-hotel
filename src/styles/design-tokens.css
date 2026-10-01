@@ -2,38 +2,46 @@
 /* Extracted directly from the UI System Reference Image */
 
 :root {
-  /* Brand Color Palette */
-  --primary: #006D6F;
-  --primary-dark: #005052;
-  --primary-light: #00878A;
-  --primary-rgb: 0, 109, 111;
+  /* =========================================================================
+     VERSION 2 (ACTIVE): Deep Temple Maroon & Sacred Gold (Brand Color: #401912)
+     ========================================================================= */
+  /* Brand Primary Palette (Deep Royal Mahogany / Temple Maroon) */
+  --primary: #401912;
+  --primary-dark: #2B100B;
+  --primary-light: #5E261C;
+  --primary-rgb: 64, 25, 18;
+  --primary-dark-rgb: 43, 16, 11;
 
-  --secondary: #00A3A8;
-  --secondary-dark: #008488;
-  --secondary-light: #33B5BA;
-  --secondary-rgb: 0, 163, 168;
+  /* Harmonized Secondary Palette (Warm Terracotta / Rust) */
+  --secondary: #8B3A2B;
+  --secondary-dark: #6E2C20;
+  --secondary-light: #AB4E3C;
+  --secondary-rgb: 139, 58, 43;
 
+  /* Luxury Accent Palette (Warm Temple Gold & Brass) */
   --accent: #DA9B5A;
   --accent-hover: #C68846;
   --accent-light: #FBF4EC;
   --accent-rgb: 218, 155, 90;
 
-  --dark: #1F2937;
-  --dark-rgb: 31, 41, 55;
-
-  --text: #374151;
-  --text-dark: #111827;
-  --text-muted: #6B7280;
-  --text-light: #9CA3AF;
+  /* Dark Contrast & Typography */
+  --dark: #231613;
+  --dark-rgb: 35, 22, 19;
+  --text: #3D2D29;
+  --text-dark: #1E1210;
+  --text-muted: #73615C;
+  --text-light: #A3938E;
   --text-white: #FFFFFF;
 
-  --background: #FAF8F3;
-  --background-alt: #F4EFE6;
+  /* Warm Temple Stone Backgrounds & Surfaces */
+  --background: #FAF7F2;
+  --background-alt: #F3ECE1;
   --surface: #FFFFFF;
-  --surface-alt: #F7F5EE;
+  --surface-alt: #F7F1E7;
 
-  --border: #E5E7EB;
-  --border-dark: #D1D5DB;
+  /* Dividers & Borders */
+  --border: #E8E0D5;
+  --border-dark: #D4C9BC;
   --border-gold: rgba(218, 155, 90, 0.4);
 
   /* Typography System - Poppins Family System */

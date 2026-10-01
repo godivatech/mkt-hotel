@@ -580,7 +580,7 @@ p {
     180deg,
     rgba(15, 23, 42, 0.3) 0%,
     rgba(15, 23, 42, 0.5) 45%,
-    rgba(0, 60, 62, 0.85) 100%
+    rgba(var(--dark-rgb, 35, 22, 19), 0.88) 100%
   );
   z-index: 2;
 }
@@ -1638,7 +1638,7 @@ p {
    FOOTER COMPONENT (Exact Reference Blueprint)
 ------------------------------------------------------------- */
 .site-footer {
-  background-color: #004D4F;
+  background-color: var(--primary-dark);
   color: rgba(255, 255, 255, 0.85);
   padding-top: var(--space-16);
   padding-bottom: var(--space-8);

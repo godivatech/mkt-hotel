@@ -19,7 +19,7 @@
 /* 1. HERO SECTION */
 .services-exact-hero {
   position: relative;
-  background-color: #0b1e22;
+  background-color: var(--primary-dark);
   background-image: url('/assets/images/services/hero_bg.jpg');
   background-size: cover;
   background-position: center right;
@@ -33,10 +33,10 @@
   inset: 0;
   background: linear-gradient(
     90deg,
-    rgba(10, 20, 22, 0.95) 0%,
-    rgba(10, 20, 22, 0.86) 35%,
-    rgba(10, 20, 22, 0.45) 65%,
-    rgba(10, 20, 22, 0.15) 100%
+    rgba(var(--dark-rgb, 35, 22, 19), 0.95) 0%,
+    rgba(var(--primary-dark-rgb, 43, 16, 11), 0.88) 35%,
+    rgba(var(--primary-rgb, 64, 25, 18), 0.50) 65%,
+    rgba(var(--primary-rgb, 64, 25, 18), 0.20) 100%
   );
   z-index: 1;
 }
@@ -60,7 +60,7 @@
   font-size: 0.85rem;
   font-weight: 600;
   letter-spacing: 2.5px;
-  color: #d4a962;
+  color: var(--accent);
   text-transform: uppercase;
   display: inline-block;
   margin-bottom: 14px;
@@ -130,7 +130,7 @@
   font-family: 'Playfair Display', Georgia, serif;
   font-size: 1.55rem;
   font-weight: 600;
-  color: #122b2f;
+  color: var(--primary);
   margin-bottom: 6px;
   line-height: 1.25;
 }
@@ -184,8 +184,8 @@
 
 .field-group input:focus,
 .field-group select:focus {
-  border-color: #0c4a4e;
-  box-shadow: 0 0 0 3px rgba(12, 74, 78, 0.12);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.15);
 }
 
 .select-field-group select {
@@ -228,7 +228,7 @@
 .btn-send-enquiry {
   width: 100%;
   height: 46px;
-  background: #0c4a4e;
+  background: var(--primary);
   color: #ffffff;
   font-size: 0.98rem;
   font-weight: 600;
@@ -244,7 +244,7 @@
 }
 
 .btn-send-enquiry:hover {
-  background: #08373b;
+  background: var(--primary-dark);
 }
 
 .btn-send-enquiry:disabled {
@@ -298,7 +298,7 @@
 }
 
 .support-main-phone:hover {
-  color: #0c4a4e;
+  color: var(--primary);
 }
 
 .support-sub-text {
@@ -358,12 +358,12 @@
 
 .shelf-tab-item:hover {
   background: #f8fafc;
-  color: #0c4a4e;
+  color: var(--primary);
 }
 
 .shelf-tab-item.active {
   background: #fbf5e8;
-  color: #9a7332;
+  color: var(--accent-hover);
 }
 
 .shelf-tab-item.active .tab-label-text {
@@ -391,7 +391,7 @@
   font-size: 0.85rem;
   font-weight: 600;
   letter-spacing: 2px;
-  color: #9a7332;
+  color: var(--accent);
   text-transform: uppercase;
   display: block;
   margin-bottom: 5px;
@@ -401,7 +401,7 @@
   font-family: 'Playfair Display', Georgia, serif;
   font-size: clamp(2rem, 3.2vw, 2.5rem);
   font-weight: 600;
-  color: #122b2f;
+  color: var(--dark);
   line-height: 1.2;
 }
 
@@ -484,7 +484,7 @@
 }
 
 .micro-header-icon {
-  color: #0c4a4e;
+  color: var(--primary);
   flex-shrink: 0;
   margin-top: 1px;
 }
@@ -507,7 +507,7 @@
 .micro-card-link {
   font-size: 0.92rem;
   font-weight: 600;
-  color: #0c4a4e;
+  color: var(--primary);
   text-decoration: none;
   display: inline-flex;
   align-items: center;
@@ -516,7 +516,7 @@
 }
 
 .micro-card-link:hover {
-  color: #b8863b;
+  color: var(--secondary);
 }
 
 /* 4. TEMPLE GUIDANCE & POPULAR PACKAGES (SPLIT ROW) */
@@ -577,7 +577,7 @@
   font-family: 'Playfair Display', Georgia, serif;
   font-size: clamp(1.45rem, 2vw, 1.85rem);
   font-weight: 600;
-  color: #122b2f;
+  color: var(--dark);
   line-height: 1.25;
   margin: 4px 0 10px 0;
 }
@@ -618,7 +618,7 @@
 }
 
 .btn-guidance-gold {
-  background: #b58238;
+  background: var(--accent);
   color: #ffffff;
   font-size: 0.95rem;
   font-weight: 600;
@@ -636,7 +636,7 @@
 }
 
 .btn-guidance-gold:hover {
-  background: #9e6f2b;
+  background: var(--accent-hover);
 }
 
 /* Right: Popular Tour Packages */
@@ -672,13 +672,13 @@
   font-family: 'Playfair Display', Georgia, serif;
   font-size: clamp(1.4rem, 1.8vw, 1.7rem);
   font-weight: 600;
-  color: #122b2f;
+  color: var(--dark);
 }
 
 .view-all-packages-link {
   font-size: 0.92rem;
   font-weight: 600;
-  color: #0c4a4e;
+  color: var(--primary);
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -687,7 +687,7 @@
 }
 
 .view-all-packages-link:hover {
-  color: #b8863b;
+  color: var(--secondary);
 }
 
 .popular-cards-row {
@@ -760,10 +760,11 @@
   gap: 5px;
 }
 
-.btn-enquire-teal {
+.btn-enquire-teal,
+.btn-enquire-primary {
   width: 100%;
   height: 36px;
-  background: #0c4a4e;
+  background: var(--primary);
   color: #ffffff;
   font-size: 0.86rem;
   font-weight: 600;
@@ -778,8 +779,9 @@
   transition: background-color 0.2s;
 }
 
-.btn-enquire-teal:hover {
-  background: #08373b;
+.btn-enquire-teal:hover,
+.btn-enquire-primary:hover {
+  background: var(--primary-dark);
 }
 
 /* 5. BOTTOM CTA BANNER */
@@ -803,10 +805,10 @@
   inset: 0;
   background: linear-gradient(
     90deg,
-    rgba(8, 48, 52, 0.95) 0%,
-    rgba(8, 48, 52, 0.8) 45%,
-    rgba(8, 48, 52, 0.25) 80%,
-    rgba(0, 0, 0, 0.1) 100%
+    rgba(var(--dark-rgb, 35, 22, 19), 0.95) 0%,
+    rgba(var(--primary-dark-rgb, 43, 16, 11), 0.82) 45%,
+    rgba(var(--primary-rgb, 64, 25, 18), 0.35) 80%,
+    rgba(0, 0, 0, 0.15) 100%
   );
   z-index: 1;
 }
@@ -839,7 +841,7 @@
 }
 
 .btn-contact-gold {
-  background: #b8863b;
+  background: var(--accent);
   color: #ffffff;
   font-size: 0.95rem;
   font-weight: 600;
@@ -855,7 +857,7 @@
 }
 
 .btn-contact-gold:hover {
-  background: #a1722d;
+  background: var(--accent-hover);
 }
 
 /* ==========================================================================

@@ -43,10 +43,9 @@ export default function Footer({ onOpenBooking }) {
           <div>
             <h4 className="footer-col-title">Accommodations</h4>
             <div className="footer-links-list">
-              <Link to="/rooms/deluxe-room" className="footer-link">Deluxe Room</Link>
-              <Link to="/rooms/executive-room" className="footer-link">Executive Room</Link>
-              <Link to="/rooms/family-suite" className="footer-link">Family Suite</Link>
-              <Link to="/rooms/suite-room" className="footer-link">Suite Room</Link>
+              <Link to="/rooms/deluxe-queen-room" className="footer-link">Deluxe Queen Room</Link>
+              <Link to="/rooms/quadruple-room" className="footer-link">Quadruple Room</Link>
+              <Link to="/rooms/family-room" className="footer-link">Family Room</Link>
               <button 
                 type="button" 
                 onClick={onOpenBooking} 

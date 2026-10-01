@@ -125,34 +125,26 @@ export default function Rooms({ onOpenBooking }) {
                 <label className="checkbox-label">
                   <input 
                     type="checkbox" 
-                    checked={selectedTypes.includes('deluxe')} 
-                    onChange={() => handleTypeToggle('deluxe')} 
+                    checked={selectedTypes.includes('deluxe-queen-room')} 
+                    onChange={() => handleTypeToggle('deluxe-queen-room')} 
                   />
-                  <span>Deluxe Room</span>
+                  <span>Deluxe Queen Room</span>
                 </label>
                 <label className="checkbox-label">
                   <input 
                     type="checkbox" 
-                    checked={selectedTypes.includes('executive')} 
-                    onChange={() => handleTypeToggle('executive')} 
+                    checked={selectedTypes.includes('quadruple-room')} 
+                    onChange={() => handleTypeToggle('quadruple-room')} 
                   />
-                  <span>Executive Room</span>
+                  <span>Quadruple Room</span>
                 </label>
                 <label className="checkbox-label">
                   <input 
                     type="checkbox" 
-                    checked={selectedTypes.includes('family')} 
-                    onChange={() => handleTypeToggle('family')} 
+                    checked={selectedTypes.includes('family-room')} 
+                    onChange={() => handleTypeToggle('family-room')} 
                   />
-                  <span>Family Suite</span>
-                </label>
-                <label className="checkbox-label">
-                  <input 
-                    type="checkbox" 
-                    checked={selectedTypes.includes('suite-room')} 
-                    onChange={() => handleTypeToggle('suite-room')} 
-                  />
-                  <span>Suite Room</span>
+                  <span>Family Room</span>
                 </label>
               </div>
 

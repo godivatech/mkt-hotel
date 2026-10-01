@@ -66,22 +66,22 @@ export const hotelInfo = {
 
 export const roomsData = [
   {
-    id: "deluxe-room",
-    name: "Deluxe Room",
-    slug: "deluxe-room",
-    tagline: "Comfortable, serene haven for couples & solo pilgrims",
+    id: "deluxe-queen-room",
+    name: "Deluxe Queen Room",
+    slug: "deluxe-queen-room",
+    tagline: "Comfortable, serene haven with modern double bed & stylish backlighting",
     capacity: "2 Guests",
     guestsCount: 2,
-    bedType: "1 King Bed",
+    bedType: "1 Double Bed",
     bedsCount: 1,
-    size: "250 sq ft",
+    size: "190 sq ft",
     price: 2499,
     priceFormatted: "₹2,499",
     featured: true,
-    image: "/assets/images/mkt-room-deluxe.png",
+    image: "/assets/images/mkt-room-mirror.png",
     gallery: [
+      "/assets/images/mkt-room-mirror.png",
       "/assets/images/mkt-room-deluxe.png",
-      "/assets/images/mkt-room-executive.png",
       "/assets/images/mkt-room-amenities.png",
       "/assets/images/mkt-bathroom-shower.png"
     ],
@@ -99,7 +99,7 @@ export const roomsData = [
       "24/7 Hot Water",
       "Intercom Facility"
     ],
-    overview: "Enjoy a comfortable stay in our Deluxe Room with modern amenities and a peaceful ambiance, perfect for families and pilgrims visiting Rameswaram. Featuring a plush king-size bed, soothing earth and teal tones, spotless ensuite bathroom with 24-hour hot water, and silent air conditioning to ensure you wake up rejuvenated for early morning temple darshan.",
+    overview: "Enjoy a comfortable stay in our Deluxe Queen Room with modern amenities and a peaceful ambiance, perfect for couples and solo pilgrims visiting Rameswaram. Featuring a plush double bed, warm backlit headboard, vanity mirror, spotless ensuite bathroom with 24-hour hot water, and silent air conditioning to ensure you wake up rejuvenated for early morning temple darshan.",
     policies: [
       "Check-in: 12:00 PM | Check-out: 11:00 AM",
       "Hair dryer and iron available on request at front desk",
@@ -109,15 +109,15 @@ export const roomsData = [
     ]
   },
   {
-    id: "family-suite",
-    name: "Family Suite",
-    slug: "family-suite",
-    tagline: "Spacious two-bed accommodation tailored for family yatras",
+    id: "quadruple-room",
+    name: "Quadruple Room",
+    slug: "quadruple-room",
+    tagline: "Spacious accommodation with two double beds tailored for families & groups",
     capacity: "4 Guests",
     guestsCount: 4,
     bedType: "2 Double Beds",
     bedsCount: 2,
-    size: "420 sq ft",
+    size: "380 sq ft",
     price: 4499,
     priceFormatted: "₹4,499",
     featured: true,
@@ -143,7 +143,7 @@ export const roomsData = [
       "Spacious Luggage Area",
       "24/7 Hot Water"
     ],
-    overview: "Travelling with family or elderly parents for sacred rituals? Our Family Suite offers generous floor space, two double beds with posture-friendly mattresses, abundant wardrobe room, and convenient seating so all family members can relax together in complete harmony.",
+    overview: "Travelling with family or friends for sacred temple rituals? Our Quadruple Room offers generous floor space with two comfortable double beds, posture-friendly mattresses, abundant wardrobe room, and convenient seating so all guests can relax together in complete harmony.",
     policies: [
       "Check-in: 12:00 PM | Check-out: 11:00 AM",
       "Hair dryer and iron available on request at front desk",
@@ -153,15 +153,15 @@ export const roomsData = [
     ]
   },
   {
-    id: "suite-room",
-    name: "Suite Room",
-    slug: "suite-room",
-    tagline: "The premier signature suite with living lounge & refined decor",
+    id: "family-room",
+    name: "Family Room",
+    slug: "family-room",
+    tagline: "Spacious premier family haven with two double beds and living comforts",
     capacity: "4 Guests",
     guestsCount: 4,
-    bedType: "2 Queen Beds",
+    bedType: "2 Double Beds",
     bedsCount: 2,
-    size: "480 sq ft",
+    size: "420 sq ft",
     price: 5499,
     priceFormatted: "₹5,499",
     featured: true,
@@ -189,7 +189,7 @@ export const roomsData = [
       "Premium Toiletries",
       "24/7 Hot Water"
     ],
-    overview: "Our premier accommodation at MKT Shanthi Nivas. The Suite Room combines a lavish master bedroom with an attached living and receiving salon. Embellished with deep teal upholstery, gold accents, marble-finish flooring, and supreme acoustic insulation for deep rest after pilgrimage rituals.",
+    overview: "Our premier family accommodation at MKT Shanthi Nivas. The Family Room combines generous space with two plush double beds and an attached seating area. Embellished with elegant furnishings, warm accents, marble-finish flooring, and supreme acoustic insulation for deep rest after pilgrimage rituals.",
     policies: [
       "Check-in: 12:00 PM | Check-out: 11:00 AM",
       "Hair dryer and iron available on request at front desk",

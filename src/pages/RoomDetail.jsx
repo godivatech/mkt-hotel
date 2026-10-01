@@ -12,8 +12,14 @@ export default function RoomDetail({ onOpenBooking }) {
   const { slug } = useParams();
   const navigate = useNavigate();
 
-  // Find room by slug or default to first
-  const room = roomsData.find(r => r.slug === slug) || roomsData[0];
+  // Find room by slug, id, or legacy slug
+  const room = roomsData.find(r => 
+    r.slug === slug || 
+    r.id === slug ||
+    ((slug === 'deluxe-room' || slug === 'executive-double-room') && r.id === 'deluxe-queen-room') ||
+    ((slug === 'family-suite' || slug === 'family-quadruple-room') && r.id === 'quadruple-room') ||
+    ((slug === 'suite-room' || slug === 'family-studio-suite') && r.id === 'family-room')
+  ) || roomsData[0];
 
   const [activeTab, setActiveTab] = useState('overview');
   const [lightboxIndex, setLightboxIndex] = useState(null);

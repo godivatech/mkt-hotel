@@ -18,7 +18,7 @@ export default function BookingModal({ isOpen, onClose, initialData = {} }) {
   const [loading, setLoading] = useState(false);
   const [checkIn, setCheckIn] = useState(initialData.checkIn || today);
   const [checkOut, setCheckOut] = useState(initialData.checkOut || tomorrow);
-  const [selectedRoomId, setSelectedRoomId] = useState(initialData.roomId || 'deluxe-room');
+  const [selectedRoomId, setSelectedRoomId] = useState(initialData.roomId || 'deluxe-queen-room');
   const [guestName, setGuestName] = useState('');
   const [guestPhone, setGuestPhone] = useState('');
   const [specialRequests, setSpecialRequests] = useState('');
@@ -39,7 +39,13 @@ export default function BookingModal({ isOpen, onClose, initialData = {} }) {
 
   if (!isOpen) return null;
 
-  const selectedRoom = roomsData.find(r => r.id === selectedRoomId) || roomsData[0];
+  const selectedRoom = roomsData.find(r => 
+    r.id === selectedRoomId || 
+    r.slug === selectedRoomId ||
+    ((selectedRoomId === 'deluxe-room' || selectedRoomId === 'executive-double-room') && r.id === 'deluxe-queen-room') ||
+    ((selectedRoomId === 'family-suite' || selectedRoomId === 'family-quadruple-room') && r.id === 'quadruple-room') ||
+    ((selectedRoomId === 'suite-room' || selectedRoomId === 'family-studio-suite') && r.id === 'family-room')
+  ) || roomsData[0];
 
   // Calculate nights
   const checkInDate = new Date(checkIn);

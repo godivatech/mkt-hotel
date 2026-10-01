@@ -24,7 +24,7 @@ function AppContent() {
   const [bookingModalOpen, setBookingModalOpen] = useState(false);
   const [bookingInitialData, setBookingInitialData] = useState({});
 
-  const handleOpenBooking = (roomId = 'deluxe-room', extraData = {}) => {
+  const handleOpenBooking = (roomId = 'deluxe-queen-room', extraData = {}) => {
     setBookingInitialData({ roomId, ...extraData });
     setBookingModalOpen(true);
   };

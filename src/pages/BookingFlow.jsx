@@ -14,7 +14,7 @@ const getNextDayStr = (dateStr) => {
 export default function BookingFlow() {
   const [searchParams] = useSearchParams();
   const today = new Date().toISOString().split('T')[0];
-  const initialRoom = searchParams.get('room') || 'deluxe-room';
+  const initialRoom = searchParams.get('room') || 'deluxe-queen-room';
   const initialCheckIn = searchParams.get('checkIn') || today;
   const initialCheckOut = searchParams.get('checkOut') || getNextDayStr(initialCheckIn);
 
@@ -34,7 +34,13 @@ export default function BookingFlow() {
   const [phoneError, setPhoneError] = useState('');
   const [dateError, setDateError] = useState('');
 
-  const selectedRoom = roomsData.find(r => r.id === selectedRoomId) || roomsData[0];
+  const selectedRoom = roomsData.find(r => 
+    r.id === selectedRoomId || 
+    r.slug === selectedRoomId ||
+    ((selectedRoomId === 'deluxe-room' || selectedRoomId === 'executive-double-room') && r.id === 'deluxe-queen-room') ||
+    ((selectedRoomId === 'family-suite' || selectedRoomId === 'family-quadruple-room') && r.id === 'quadruple-room') ||
+    ((selectedRoomId === 'suite-room' || selectedRoomId === 'family-studio-suite') && r.id === 'family-room')
+  ) || roomsData[0];
 
   // Calculate nights
   const checkInDate = new Date(checkIn);

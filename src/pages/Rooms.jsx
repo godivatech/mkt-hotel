@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { Filter, SlidersHorizontal, ArrowRight, RotateCcw } from 'lucide-react';
 import RoomCard from '../components/RoomCard';
+import RoomAmenitiesStrip from '../components/RoomAmenitiesStrip';
 import { roomsData } from '../data/hotelData';
 
 export default function Rooms({ onOpenBooking }) {
@@ -86,6 +87,9 @@ export default function Rooms({ onOpenBooking }) {
           </nav>
         </div>
       </section>
+
+      {/* Signature Room Amenities Bar */}
+      <RoomAmenitiesStrip />
 
       {/* Rooms Listing Layout */}
       <section className="section-spacing">
@@ -185,34 +189,34 @@ export default function Rooms({ onOpenBooking }) {
                 <label className="checkbox-label">
                   <input 
                     type="checkbox" 
-                    checked={selectedAmenities.includes('Free WiFi')} 
-                    onChange={() => handleAmenityToggle('Free WiFi')} 
+                    checked={selectedAmenities.includes('Wi-Fi')} 
+                    onChange={() => handleAmenityToggle('Wi-Fi')} 
                   />
-                  <span>Free WiFi</span>
+                  <span>High speed Wi-Fi</span>
                 </label>
                 <label className="checkbox-label">
                   <input 
                     type="checkbox" 
-                    checked={selectedAmenities.includes('Television')} 
-                    onChange={() => handleAmenityToggle('Television')} 
+                    checked={selectedAmenities.includes('TV')} 
+                    onChange={() => handleAmenityToggle('TV')} 
                   />
-                  <span>Television</span>
+                  <span>Smart TV</span>
                 </label>
                 <label className="checkbox-label">
                   <input 
                     type="checkbox" 
-                    checked={selectedAmenities.includes('Water')} 
-                    onChange={() => handleAmenityToggle('Water')} 
+                    checked={selectedAmenities.includes('Room Service')} 
+                    onChange={() => handleAmenityToggle('Room Service')} 
+                  />
+                  <span>24/7 Room Service</span>
+                </label>
+                <label className="checkbox-label">
+                  <input 
+                    type="checkbox" 
+                    checked={selectedAmenities.includes('Hot Water')} 
+                    onChange={() => handleAmenityToggle('Hot Water')} 
                   />
                   <span>24/7 Hot Water</span>
-                </label>
-                <label className="checkbox-label">
-                  <input 
-                    type="checkbox" 
-                    checked={selectedAmenities.includes('Attached Bathroom')} 
-                    onChange={() => handleAmenityToggle('Attached Bathroom')} 
-                  />
-                  <span>Attached Bathroom</span>
                 </label>
               </div>
             </aside>

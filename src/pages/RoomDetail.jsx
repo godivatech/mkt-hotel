@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { 
   Users, Bed, Maximize, Wind, Wifi, Tv, Bath, Droplets, Sparkles, Clock, ShieldCheck, 
-  ArrowRight, Phone, Check, Calendar 
+  ArrowRight, Phone, Check, Calendar, Utensils
 } from 'lucide-react';
 import { roomsData, hotelInfo } from '../data/hotelData';
 import LightboxModal from '../components/LightboxModal';
+import RoomAmenitiesStrip from '../components/RoomAmenitiesStrip';
 
 export default function RoomDetail({ onOpenBooking }) {
   const { slug } = useParams();
@@ -42,7 +43,13 @@ export default function RoomDetail({ onOpenBooking }) {
   };
 
   const amenityIcons = {
+    'High speed Wi-Fi': <Wifi size={20} />,
+    'Smart TV': <Tv size={20} />,
+    '24/7 Room Service': <Utensils size={20} />,
+    'Luxury Bath Amenities': <Sparkles size={20} />,
     'Air Conditioning': <Wind size={20} />,
+    'Hair Dryer (On Request)': <Wind size={20} />,
+    'Iron Box (On Request)': <Sparkles size={20} />,
     'Free WiFi': <Wifi size={20} />,
     'Television': <Tv size={20} />,
     'Smart Television': <Tv size={20} />,
@@ -121,6 +128,11 @@ export default function RoomDetail({ onOpenBooking }) {
                     <ArrowRight size={16} />
                   </button>
                 </div>
+              </div>
+
+              {/* 5 Signature Room Amenities Bar */}
+              <div style={{ margin: '1.75rem 0', borderRadius: 'var(--radius-md)', overflow: 'hidden', border: '1px solid #EFEAE1' }}>
+                <RoomAmenitiesStrip />
               </div>
 
               {/* Tabs Navigation (Blueprint 3) */}

@@ -86,9 +86,13 @@ export const roomsData = [
       "/assets/images/mkt-bathroom-shower.png"
     ],
     amenities: [
+      "High speed Wi-Fi",
+      "Smart TV",
+      "24/7 Room Service",
+      "Luxury Bath Amenities",
       "Air Conditioning",
-      "Free WiFi",
-      "Television",
+      "Hair Dryer (On Request)",
+      "Iron Box (On Request)",
       "Attached Bathroom",
       "Complimentary Water",
       "Daily Housekeeping",
@@ -98,6 +102,7 @@ export const roomsData = [
     overview: "Enjoy a comfortable stay in our Deluxe Room with modern amenities and a peaceful ambiance, perfect for families and pilgrims visiting Rameswaram. Featuring a plush king-size bed, soothing earth and teal tones, spotless ensuite bathroom with 24-hour hot water, and silent air conditioning to ensure you wake up rejuvenated for early morning temple darshan.",
     policies: [
       "Check-in: 12:00 PM | Check-out: 11:00 AM",
+      "Hair dryer and iron available on request at front desk",
       "Government photo ID required at check-in for all adult guests",
       "100% Non-smoking room environment",
       "Early check-in subject to room availability upon request"
@@ -124,9 +129,13 @@ export const roomsData = [
       "/assets/images/mkt-bathroom-shower.png"
     ],
     amenities: [
+      "High speed Wi-Fi",
+      "Smart TV",
+      "24/7 Room Service",
+      "Luxury Bath Amenities",
       "Air Conditioning",
-      "Free WiFi",
-      "Television",
+      "Hair Dryer (On Request)",
+      "Iron Box (On Request)",
       "Attached Bathroom",
       "Dual Wardrobes",
       "Complimentary Water",
@@ -137,6 +146,7 @@ export const roomsData = [
     overview: "Travelling with family or elderly parents for sacred rituals? Our Family Suite offers generous floor space, two double beds with posture-friendly mattresses, abundant wardrobe room, and convenient seating so all family members can relax together in complete harmony.",
     policies: [
       "Check-in: 12:00 PM | Check-out: 11:00 AM",
+      "Hair dryer and iron available on request at front desk",
       "Ideal for up to 4 adults and 2 children under 6 years",
       "Government photo ID required for all adult guests",
       "Pure vegetarian room dining service available"
@@ -164,19 +174,25 @@ export const roomsData = [
       "/assets/images/mkt-bathroom-vanity.png"
     ],
     amenities: [
+      "High speed Wi-Fi",
+      "Smart TV",
+      "24/7 Room Service",
+      "Luxury Bath Amenities",
       "Air Conditioning",
-      "Free WiFi",
-      "Smart Television",
+      "Hair Dryer (On Request)",
+      "Iron Box (On Request)",
       "Attached Luxury Bathroom",
       "Separate Living Lounge",
       "Coffee Table & Sofa",
       "Complimentary Water",
       "Daily Housekeeping",
-      "Premium Toiletries"
+      "Premium Toiletries",
+      "24/7 Hot Water"
     ],
     overview: "Our premier accommodation at MKT Shanthi Nivas. The Suite Room combines a lavish master bedroom with an attached living and receiving salon. Embellished with deep teal upholstery, gold accents, marble-finish flooring, and supreme acoustic insulation for deep rest after pilgrimage rituals.",
     policies: [
       "Check-in: 12:00 PM | Check-out: 11:00 AM",
+      "Hair dryer and iron available on request at front desk",
       "Government photo ID required at check-in",
       "Complimentary welcome beverage on arrival",
       "Non-smoking luxury environment"

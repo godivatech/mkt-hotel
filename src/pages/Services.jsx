@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { 
   User, Phone, Calendar, ArrowRight, PhoneCall, ChevronDown,
   Clock, MapPin, Car, Users, Ticket, Accessibility,
-  CheckCircle2
+  CheckCircle2, Compass, ShieldCheck, Check, Sparkles, MessageSquare
 } from 'lucide-react';
 import { hotelInfo } from '../data/hotelData';
 import { saveEnquiry } from '../services/firebase';
@@ -55,18 +55,45 @@ const DiyaIcon = ({ size = 24, color = "currentColor", className = "" }) => (
 );
 
 export default function Services() {
-  const [activeTab, setActiveTab] = useState('temple');
+  const [activeTab, setActiveTab] = useState('sightseeing');
+  const [sightseeingFilter, setSightseeingFilter] = useState('all');
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
     date: '',
-    service: 'Temple Darshan Assistance'
+    service: 'Local Sightseeing'
   });
   const [formStatus, setFormStatus] = useState({ loading: false, success: false, error: '' });
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const scrollToSection = (id) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  const handleTabClick = (tabId) => {
+    setActiveTab(tabId);
+    if (tabId === 'sightseeing') {
+      scrollToSection('sightseeing-section');
+    } else if (tabId === 'temple') {
+      scrollToSection('temple-guidance-section');
+    } else if (tabId === 'tour') {
+      scrollToSection('packages-section');
+    } else if (tabId === 'transport') {
+      scrollToSection('sightseeing-fleet-section');
+    } else {
+      setFormData(prev => ({
+        ...prev,
+        service: tabId === 'ticket' ? 'Ticket Booking' : tabId === 'guide' ? 'Tour Guide Services' : 'Special Assistance'
+      }));
+      scrollToSection('plan-visit-form');
+    }
+  };
 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
@@ -92,7 +119,7 @@ export default function Services() {
 
       if (res && res.success) {
         setFormStatus({ loading: false, success: true, error: '' });
-        setFormData({ name: '', phone: '', date: '', service: 'Temple Darshan Assistance' });
+        setFormData({ name: '', phone: '', date: '', service: 'Local Sightseeing' });
         setTimeout(() => setFormStatus(prev => ({ ...prev, success: false })), 6000);
       } else {
         setFormStatus({ loading: false, success: false, error: (res && res.error) || 'Failed to submit. Please call us directly.' });
@@ -190,6 +217,171 @@ export default function Services() {
     }
   ];
 
+  // Comprehensive Sightseeing Spots Data
+  const sightseeingSpots = [
+    {
+      id: 'dhanushkodi',
+      category: 'coastal',
+      categoryLabel: 'Coastal Wonder • Ghost Town',
+      name: 'Dhanushkodi & Arichal Munai',
+      distance: '18 km • 25 mins drive',
+      image: '/assets/images/dhanushkodi.jpg',
+      badge: 'Must Visit',
+      badgeClass: 'badge-gold',
+      description: 'The mystical eastern tip of Rameswaram where the Bay of Bengal meets the Indian Ocean. Witness the sacred origin of Ram Setu, haunting 1964 cyclone ruins, and pristine white sandbars.',
+      highlights: ['Confluence of Two Oceans', 'Ram Setu Vantage Point', 'Historic Church & Railway Ruins', 'Untouched White Sandbars'],
+      timings: '6:00 AM – 5:30 PM (Daytime Entry)',
+      bestFor: 'Sunrise Spectacle & Panoramic Ocean Views'
+    },
+    {
+      id: 'pamban',
+      category: 'landmarks',
+      categoryLabel: 'Century-Old Engineering Marvel',
+      name: 'Pamban Sea Bridge',
+      distance: '11 km • 15 mins drive',
+      image: '/assets/images/pamban-bridge.jpg',
+      badge: 'Iconic Marvel',
+      badgeClass: 'badge-teal',
+      description: "India's celebrated cantilever sea bridge spanning azure waters of Palk Strait. Watch trains glide across the open ocean and capture breathtaking sunset views from the road bridge.",
+      highlights: ['2.06 km Cantilever Sea Bridge', 'Spectacular Ocean Panorama', 'Mandapam Coastline View', 'Evening Sunset Photography'],
+      timings: 'Open 24 Hours (Best at 4:30 PM – 6:30 PM)',
+      bestFor: 'Train Crossing & Sunset Photography'
+    },
+    {
+      id: 'kalam-memorial',
+      category: 'monuments',
+      categoryLabel: 'National Monument & Museum',
+      name: 'Dr. A.P.J. Abdul Kalam National Memorial',
+      distance: '4 km • 8 mins drive',
+      image: '/assets/images/services/kalam_memorial.jpg',
+      badge: 'Inspirational',
+      badgeClass: 'badge-blue',
+      description: "A grand architectural monument commemorating India's beloved 11th President & Missile Man. Showcasing replica rockets, personal memorabilia, hand-painted murals, and peaceful gardens.",
+      highlights: ['Mughal & Chettinad Architecture', 'Replica Agni & Prithvi Missiles', 'Personal Books & Awards', 'Manicured Peaceful Walkways'],
+      timings: '9:00 AM – 1:00 PM & 2:00 PM – 5:00 PM',
+      bestFor: 'Families, Students & History Enthusiasts'
+    },
+    {
+      id: 'ramar-patham',
+      category: 'sacred',
+      categoryLabel: 'Highest Sacred Elevation',
+      name: 'Ramar Patham (Gandhamadhana Parvatham)',
+      distance: '2.5 km • 6 mins drive',
+      image: '/assets/images/services/ramar_patham.jpg',
+      badge: 'Panoramic Vista',
+      badgeClass: 'badge-gold',
+      description: "The highest point in Rameswaram enshrining the sacred footprints of Lord Rama on a stone chakra. Features an exhilarating 360-degree panoramic vista across the palm canopy to the ocean.",
+      highlights: ["Lord Rama's Sacred Footprint", 'Highest Geographic Elevation', '360° Island Panorama', 'Peaceful Hilltop Shrine'],
+      timings: '6:00 AM – 11:30 AM & 3:30 PM – 6:30 PM',
+      bestFor: 'Hilltop Darshan & 360° Photography'
+    },
+    {
+      id: 'agni-theertham',
+      category: 'sacred',
+      categoryLabel: 'Sacred Purification Snanam',
+      name: 'Agni Theertham & 22 Theerthams',
+      distance: '350m • 4 mins walk from MKT',
+      image: '/assets/images/services/card_temple.jpg',
+      badge: 'Walking Distance',
+      badgeClass: 'badge-teal',
+      description: 'The calm, wave-free sea shore located directly facing the East Gopuram. Pilgrims take their inaugural holy dip here before entering the Ramanathaswamy Temple for the 22 Kundam snanam.',
+      highlights: ['Calm Holy Ocean Snanam', 'Pithru Tharpanam Ancestral Rites', 'Adjacent to Temple East Gate', 'Immediate Walking Distance'],
+      timings: '5:00 AM – 7:00 PM (Daily)',
+      bestFor: 'Sacred Pilgrimage Purification Bath'
+    },
+    {
+      id: 'kothandaramaswamy',
+      category: 'sacred',
+      categoryLabel: 'Ancient Heritage Sea Shrine',
+      name: 'Kothandaramaswamy Temple',
+      distance: '12 km • 18 mins drive',
+      image: '/assets/images/services/card_tour.jpg',
+      badge: 'Ancient Heritage',
+      badgeClass: 'badge-blue',
+      description: 'An evocative 500-year-old temple surrounded by shallow turquoise ocean waters on the route to Dhanushkodi. The legendary site where Vibhishana surrendered to Lord Rama and was crowned King.',
+      highlights: ['Encircled by Sea Waters', 'Sole Survivor of 1964 Cyclone', 'Vibhishana Pattabhishekam Site', 'Tranquil Marine Atmosphere'],
+      timings: '7:00 AM – 5:30 PM',
+      bestFor: 'Ramayana Legend & Coastal Solitude'
+    }
+  ];
+
+  // Curated Sightseeing Itineraries
+  const sightseeingTours = [
+    {
+      id: 'tour-half-day',
+      badge: 'Most Popular',
+      title: 'Half-Day Island Sightseeing Tour',
+      duration: '4 – 5 Hours',
+      vehicle: 'AC Sedan / SUV with Chauffeur',
+      covers: [
+        'Ramar Patham (Highest Hilltop Point)',
+        'Dr. A.P.J. Abdul Kalam National Memorial',
+        'Villoondi Theertham (Sweet Water in the Sea)',
+        'Lakshmana & Sita Theertham',
+        'Pamban Sea Bridge Sunset Viewpoint'
+      ],
+      features: [
+        'Doorstep hotel pickup & drop at MKT Shanthi Nivas',
+        'Courteous Tamil & Hindi speaking local driver',
+        'All fuel, island entry & parking fees covered',
+        'Flexible halts for photography & coconut water'
+      ],
+      idealFor: 'Pilgrims with limited time wanting complete island highlights'
+    },
+    {
+      id: 'tour-full-day',
+      badge: 'Complete Experience',
+      title: 'Full-Day Dhanushkodi & Rameswaram Tour',
+      duration: '7 – 8 Hours',
+      vehicle: 'AC Sedan / SUV / Tempo Traveller',
+      covers: [
+        'Early Morning Temple & Agni Theertham assistance',
+        'Dhanushkodi Ghost Town & 1964 Church Ruins',
+        'Arichal Munai (Land’s End Ocean Confluence)',
+        'Kothandaramaswamy Coastal Temple',
+        'Dr. A.P.J. Abdul Kalam National Memorial',
+        'Pamban Cantilever Bridge Ocean Train crossing'
+      ],
+      features: [
+        'Full day dedicated AC cab at your service',
+        'Coordinated sunrise or sunset at Arichal Munai',
+        'Beach entry permit assistance & local guidance',
+        'Complimentary luggage storage at hotel'
+      ],
+      idealFor: 'Families & groups seeking a memorable, unhurried full-day tour'
+    }
+  ];
+
+  // Sightseeing Cab Fleet Options
+  const cabFleet = [
+    {
+      name: 'AC Sedan (Dzire / Etios)',
+      capacity: 'Up to 4 Guests',
+      luggage: '2 Medium Bags',
+      ac: 'Climate Control AC',
+      desc: 'Smooth and economical for couples & small families'
+    },
+    {
+      name: 'AC SUV (Innova / Ertiga)',
+      capacity: 'Up to 7 Guests',
+      luggage: '4-5 Large Bags',
+      ac: 'Dual AC Vents',
+      desc: 'Spacious legroom & supreme comfort for family yatras'
+    },
+    {
+      name: 'Tempo Traveller',
+      capacity: '12 – 16 Guests',
+      luggage: 'Ample Luggage Bay',
+      ac: 'High-Power AC',
+      desc: 'Ideal for large pilgrimage groups & extended family tours'
+    }
+  ];
+
+  const filteredSpots = sightseeingSpots.filter(spot => {
+    if (sightseeingFilter === 'all') return true;
+    return spot.category === sightseeingFilter;
+  });
+
   return (
     <div className="services-exact-page">
       {/* 1. HERO SECTION */}
@@ -213,7 +405,7 @@ export default function Services() {
           </div>
 
           {/* Right Floating Form Card */}
-          <div className="hero-form-wrapper">
+          <div className="hero-form-wrapper" id="plan-visit-form">
             <div className="exact-plan-card">
               <h3 className="plan-card-title">Plan Your Visit</h3>
               <p className="plan-card-subtitle">
@@ -262,12 +454,11 @@ export default function Services() {
                     value={formData.service}
                     onChange={handleFormChange}
                   >
-                    <option value="Temple Darshan Assistance">Service Interested In</option>
+                    <option value="Local Sightseeing">Local Sightseeing</option>
                     <option value="Temple Darshan Assistance">Temple Darshan Assistance</option>
                     <option value="Tour Packages">Tour Packages</option>
                     <option value="Ticket Booking">Ticket Booking</option>
                     <option value="Transport Services">Transport Services</option>
-                    <option value="Local Sightseeing">Local Sightseeing</option>
                     <option value="Tour Guide Services">Tour Guide Services</option>
                     <option value="Special Assistance">Special Assistance</option>
                   </select>
@@ -299,7 +490,7 @@ export default function Services() {
                 </div>
                 <div className="support-details">
                   <span className="support-heading-text">Need Immediate Assistance?</span>
-                  <a href="tel:09442049359" className="support-main-phone">094420 49359</a>
+                  <a href={`tel:${hotelInfo.phone}`} className="support-main-phone">{hotelInfo.phoneFormatted || '83002 36666'}</a>
                   <span className="support-sub-text">Call us for quick support</span>
                 </div>
               </div>
@@ -317,7 +508,7 @@ export default function Services() {
                 key={tab.id}
                 type="button"
                 className={`shelf-tab-item ${activeTab === tab.id ? 'active' : ''}`}
-                onClick={() => setActiveTab(tab.id)}
+                onClick={() => handleTabClick(tab.id)}
               >
                 <div className="tab-icon-wrap">{tab.icon}</div>
                 <span className="tab-label-text">{tab.label}</span>
@@ -355,9 +546,33 @@ export default function Services() {
                     <h4 className="micro-header-title">{card.title}</h4>
                   </div>
                   <p className="micro-card-desc">{card.desc}</p>
-                  <Link to="/contact" className="micro-card-link">
+                  <button
+                    type="button"
+                    className="micro-card-link"
+                    onClick={() => {
+                      if (card.id === 'sightseeing') {
+                        setActiveTab('sightseeing');
+                        scrollToSection('sightseeing-section');
+                      } else if (card.id === 'temple') {
+                        setActiveTab('temple');
+                        scrollToSection('temple-guidance-section');
+                      } else if (card.id === 'tour') {
+                        setActiveTab('tour');
+                        scrollToSection('packages-section');
+                      } else if (card.id === 'transport') {
+                        setActiveTab('transport');
+                        scrollToSection('sightseeing-fleet-section');
+                      } else {
+                        setFormData(prev => ({
+                          ...prev,
+                          service: card.id === 'ticket' ? 'Ticket Booking' : 'Tour Guide Services'
+                        }));
+                        scrollToSection('plan-visit-form');
+                      }
+                    }}
+                  >
                     Know More <ArrowRight size={15} />
-                  </Link>
+                  </button>
                 </div>
               </div>
             ))}
@@ -366,7 +581,7 @@ export default function Services() {
       </section>
 
       {/* 4. TEMPLE GUIDANCE & POPULAR PACKAGES (SPLIT ROW) */}
-      <section className="guidance-packages-split-section">
+      <section className="guidance-packages-split-section" id="temple-guidance-section">
         <div className="services-exact-container split-layout-grid">
           {/* Left: Temple Guidance Banner Card */}
           <div className="temple-guidance-card">
@@ -435,7 +650,7 @@ export default function Services() {
           </div>
 
           {/* Right: Popular Tour Packages */}
-          <div className="popular-packages-container">
+          <div className="popular-packages-container" id="packages-section">
             <div className="popular-packages-top">
               <div className="popular-heading-col">
                 <span className="eyebrow-packages">POPULAR TOUR PACKAGES</span>
@@ -474,7 +689,249 @@ export default function Services() {
         </div>
       </section>
 
-      {/* 5. BOTTOM CTA BANNER */}
+      {/* 5. DEDICATED SIGHTSEEING SHOWCASE SECTION */}
+      <section className="sightseeing-section" id="sightseeing-section">
+        <div className="services-exact-container">
+          {/* Sightseeing Section Header */}
+          <div className="sightseeing-section-header">
+            <div className="sightseeing-title-block">
+              <div className="sightseeing-eyebrow-row">
+                <Compass size={17} className="eyebrow-icon-compass" />
+                <span className="eyebrow-accent">LOCAL SIGHTSEEING</span>
+              </div>
+              <h2 className="sightseeing-main-title">Must-Visit Sightseeing in Rameswaram</h2>
+              <p className="sightseeing-main-desc">
+                From the legendary ruins and turquoise ocean waters of Dhanushkodi to the historic Pamban Bridge and sacred island shrines, experience Rameswaram with comfortable AC cabs, experienced local drivers, and customized itineraries arranged directly from MKT Shanthi Nivas.
+              </p>
+            </div>
+
+            {/* Filter Pills */}
+            <div className="sightseeing-filter-pills">
+              <button
+                type="button"
+                className={`filter-pill ${sightseeingFilter === 'all' ? 'active' : ''}`}
+                onClick={() => setSightseeingFilter('all')}
+              >
+                All Attractions ({sightseeingSpots.length})
+              </button>
+              <button
+                type="button"
+                className={`filter-pill ${sightseeingFilter === 'coastal' ? 'active' : ''}`}
+                onClick={() => setSightseeingFilter('coastal')}
+              >
+                Coastal Wonders
+              </button>
+              <button
+                type="button"
+                className={`filter-pill ${sightseeingFilter === 'landmarks' ? 'active' : ''}`}
+                onClick={() => setSightseeingFilter('landmarks')}
+              >
+                Iconic Landmarks
+              </button>
+              <button
+                type="button"
+                className={`filter-pill ${sightseeingFilter === 'sacred' ? 'active' : ''}`}
+                onClick={() => setSightseeingFilter('sacred')}
+              >
+                Sacred Sites
+              </button>
+            </div>
+          </div>
+
+          {/* Sightseeing Cards Grid */}
+          <div className="sightseeing-cards-grid">
+            {filteredSpots.map((spot) => (
+              <div className="sightseeing-spot-card" key={spot.id}>
+                <div className="spot-card-media">
+                  <img src={spot.image} alt={spot.name} loading="lazy" />
+                  <div className="spot-media-overlay">
+                    <span className="spot-category-tag">{spot.categoryLabel}</span>
+                    <span className="spot-distance-pill">
+                      <MapPin size={13} /> {spot.distance}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="spot-card-body">
+                  <div className="spot-card-header">
+                    <h3 className="spot-card-title">{spot.name}</h3>
+                    <span className={`spot-badge ${spot.badgeClass}`}>{spot.badge}</span>
+                  </div>
+
+                  <p className="spot-card-desc">{spot.description}</p>
+
+                  <div className="spot-highlights-list">
+                    {spot.highlights.map((h, i) => (
+                      <span key={i} className="spot-highlight-chip">
+                        <Check size={12} className="chip-check-icon" /> {h}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="spot-card-footer">
+                    <div className="spot-timing-meta">
+                      <Clock size={14} className="timing-clock-icon" />
+                      <span>{spot.timings}</span>
+                    </div>
+
+                    <div className="spot-actions-row">
+                      <a
+                        href={`https://wa.me/918300236666?text=Hello%20MKT%20Shanthi%20Nivas%2C%20I%20would%20like%20to%20enquire%20about%20a%20sightseeing%20cab%20to%20${encodeURIComponent(spot.name)}.`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn-spot-whatsapp"
+                        title="Enquire on WhatsApp"
+                      >
+                        <MessageSquare size={15} /> WhatsApp
+                      </a>
+                      <a
+                        href={`tel:${hotelInfo.phone}`}
+                        className="btn-spot-enquire"
+                      >
+                        Book Cab <ArrowRight size={14} />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* CURATED SIGHTSEEING PACKAGES / ITINERARIES */}
+          <div className="sightseeing-tours-wrapper">
+            <div className="tours-section-intro">
+              <span className="eyebrow-accent">CURATED ITINERARIES</span>
+              <h3 className="tours-section-title">Popular Sightseeing Tours &amp; Day Trips</h3>
+              <p className="tours-section-desc">
+                Choose from our popular guided itineraries with doorstep hotel pickup from MKT Shanthi Nivas.
+              </p>
+            </div>
+
+            <div className="tours-cards-grid">
+              {sightseeingTours.map((tour) => (
+                <div className="curated-tour-card" key={tour.id}>
+                  <div className="tour-card-top">
+                    <div className="tour-badge-row">
+                      <span className="tour-popularity-badge">{tour.badge}</span>
+                      <span className="tour-duration-pill">
+                        <Clock size={14} /> {tour.duration}
+                      </span>
+                    </div>
+                    <h4 className="tour-title">{tour.title}</h4>
+                    <div className="tour-vehicle-row">
+                      <Car size={16} /> <span>{tour.vehicle}</span>
+                    </div>
+                  </div>
+
+                  <div className="tour-card-middle">
+                    <h5 className="tour-subheading">Destinations Covered:</h5>
+                    <ul className="tour-stops-list">
+                      {tour.covers.map((c, i) => (
+                        <li key={i}>
+                          <MapPin size={14} className="stop-icon" />
+                          <span>{c}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    <h5 className="tour-subheading">Package Inclusions:</h5>
+                    <ul className="tour-features-list">
+                      {tour.features.map((f, i) => (
+                        <li key={i}>
+                          <Check size={14} className="feature-check-icon" />
+                          <span>{f}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="tour-card-bottom">
+                    <p className="tour-ideal-note">
+                      <strong>Best for:</strong> {tour.idealFor}
+                    </p>
+                    <div className="tour-cta-buttons">
+                      <a
+                        href={`https://wa.me/918300236666?text=Hello%20MKT%20Shanthi%20Nivas%2C%20I%20am%20interested%20in%20the%20${encodeURIComponent(tour.title)}.`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn-tour-whatsapp"
+                      >
+                        <MessageSquare size={16} /> WhatsApp Booking
+                      </a>
+                      <a
+                        href={`tel:${hotelInfo.phone}`}
+                        className="btn-tour-call"
+                      >
+                        Call to Reserve <ArrowRight size={16} />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* SIGHTSEEING FLEET & CAB BOOKING STRIP */}
+          <div className="sightseeing-fleet-strip" id="sightseeing-fleet-section">
+            <div className="fleet-strip-content">
+              <div className="fleet-intro-col">
+                <span className="eyebrow-accent">MKT TRAVEL DESK</span>
+                <h3 className="fleet-title">Sightseeing Cabs &amp; Private Transport</h3>
+                <p className="fleet-desc">
+                  Explore Rameswaram at your own pace. All cabs are air-conditioned, sanitized, and chauffeured by courteous local drivers who know the best photography points and ritual timings.
+                </p>
+                <div className="fleet-trust-points">
+                  <div className="trust-point-item">
+                    <ShieldCheck size={18} className="trust-icon" />
+                    <span>Fixed, Transparent Tariff with Zero Hidden Extras</span>
+                  </div>
+                  <div className="trust-point-item">
+                    <MapPin size={18} className="trust-icon" />
+                    <span>Doorstep Pickup &amp; Drop at MKT Shanthi Nivas</span>
+                  </div>
+                  <div className="trust-point-item">
+                    <Clock size={18} className="trust-icon" />
+                    <span>Customized Sunrise, Sunset &amp; Full-Day Schedules</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="fleet-vehicles-col">
+                <div className="fleet-cards-wrap">
+                  {cabFleet.map((cab, idx) => (
+                    <div className="fleet-spec-card" key={idx}>
+                      <div className="spec-card-icon-wrap">
+                        <Car size={24} />
+                      </div>
+                      <div className="spec-card-details">
+                        <h4 className="spec-car-name">{cab.name}</h4>
+                        <div className="spec-tags-row">
+                          <span className="spec-tag">{cab.capacity}</span>
+                          <span className="spec-tag">{cab.ac}</span>
+                          <span className="spec-tag">{cab.luggage}</span>
+                        </div>
+                        <p className="spec-car-desc">{cab.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="fleet-action-callout">
+                  <div className="callout-text">
+                    <span className="callout-heading">Need a Cab Immediately?</span>
+                    <span className="callout-sub">Our travel desk is ready to arrange your vehicle right away.</span>
+                  </div>
+                  <a href={`tel:${hotelInfo.phone}`} className="btn-fleet-call">
+                    <PhoneCall size={18} /> Call {hotelInfo.phoneFormatted || '83002 36666'}
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 6. BOTTOM CTA BANNER */}
       <section className="services-bottom-cta-exact">
         <div className="services-exact-container">
           <div className="cta-banner-card">
@@ -499,3 +956,4 @@ export default function Services() {
     </div>
   );
 }
+

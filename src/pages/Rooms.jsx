@@ -7,7 +7,7 @@ import { roomsData } from '../data/hotelData';
 
 export default function Rooms({ onOpenBooking }) {
   const [selectedTypes, setSelectedTypes] = useState(['all']);
-  const [maxPrice, setMaxPrice] = useState(6000);
+  const [maxPrice, setMaxPrice] = useState(10000);
   const [selectedAmenities, setSelectedAmenities] = useState([]);
   const [sortBy, setSortBy] = useState('recommended');
 
@@ -35,7 +35,7 @@ export default function Rooms({ onOpenBooking }) {
 
   const handleResetFilters = () => {
     setSelectedTypes(['all']);
-    setMaxPrice(6000);
+    setMaxPrice(10000);
     setSelectedAmenities([]);
     setSortBy('recommended');
   };
@@ -45,7 +45,13 @@ export default function Rooms({ onOpenBooking }) {
     return roomsData.filter(room => {
       // Type filter
       if (!selectedTypes.includes('all')) {
-        const matchesType = selectedTypes.some(t => room.id.includes(t));
+        const matchesType = selectedTypes.some(t => 
+          room.id === t || 
+          room.slug === t ||
+          (t === 'executive-double' && (room.id === 'deluxe-queen-room' || room.id === 'executive-double')) ||
+          (t === 'executive-four-fold' && (room.id === 'quadruple-room' || room.id === 'executive-four-fold')) ||
+          (t === 'family-suite' && (room.id === 'family-room' || room.id === 'family-suite'))
+        );
         if (!matchesType) return false;
       }
 
@@ -125,43 +131,43 @@ export default function Rooms({ onOpenBooking }) {
                 <label className="checkbox-label">
                   <input 
                     type="checkbox" 
-                    checked={selectedTypes.includes('deluxe-queen-room')} 
-                    onChange={() => handleTypeToggle('deluxe-queen-room')} 
+                    checked={selectedTypes.includes('executive-double')} 
+                    onChange={() => handleTypeToggle('executive-double')} 
                   />
-                  <span>Deluxe Queen Room</span>
+                  <span>Executive Double</span>
                 </label>
                 <label className="checkbox-label">
                   <input 
                     type="checkbox" 
-                    checked={selectedTypes.includes('quadruple-room')} 
-                    onChange={() => handleTypeToggle('quadruple-room')} 
+                    checked={selectedTypes.includes('executive-four-fold')} 
+                    onChange={() => handleTypeToggle('executive-four-fold')} 
                   />
-                  <span>Quadruple Room</span>
+                  <span>Executive Four Fold</span>
                 </label>
                 <label className="checkbox-label">
                   <input 
                     type="checkbox" 
-                    checked={selectedTypes.includes('family-room')} 
-                    onChange={() => handleTypeToggle('family-room')} 
+                    checked={selectedTypes.includes('family-suite')} 
+                    onChange={() => handleTypeToggle('family-suite')} 
                   />
-                  <span>Family Room</span>
+                  <span>Family Suite</span>
                 </label>
               </div>
 
               {/* Price Range */}
               <div className="filter-group">
-                <div className="filter-group-title">Price Range</div>
+                <div className="filter-group-title">Price Range (Inclusive Tax)</div>
                 <div className="price-slider-wrap">
                   <input 
                     type="range" 
-                    min="2000" 
-                    max="6000" 
+                    min="3000" 
+                    max="10000" 
                     step="250" 
                     value={maxPrice} 
                     onChange={(e) => setMaxPrice(Number(e.target.value))}
                   />
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
-                    <span>₹2,000</span>
+                    <span>₹3,000</span>
                     <span style={{ fontWeight: 600, color: 'var(--primary)' }}>Up to ₹{maxPrice.toLocaleString('en-IN')}</span>
                   </div>
                 </div>
@@ -193,6 +199,38 @@ export default function Rooms({ onOpenBooking }) {
                     onChange={() => handleAmenityToggle('TV')} 
                   />
                   <span>Smart TV</span>
+                </label>
+                <label className="checkbox-label">
+                  <input 
+                    type="checkbox" 
+                    checked={selectedAmenities.includes('Parking')} 
+                    onChange={() => handleAmenityToggle('Parking')} 
+                  />
+                  <span>Dedicated Parking</span>
+                </label>
+                <label className="checkbox-label">
+                  <input 
+                    type="checkbox" 
+                    checked={selectedAmenities.includes('Welcome Drink')} 
+                    onChange={() => handleAmenityToggle('Welcome Drink')} 
+                  />
+                  <span>Welcome Drink</span>
+                </label>
+                <label className="checkbox-label">
+                  <input 
+                    type="checkbox" 
+                    checked={selectedAmenities.includes('Hair Dryer')} 
+                    onChange={() => handleAmenityToggle('Hair Dryer')} 
+                  />
+                  <span>Hair Dryer on Request</span>
+                </label>
+                <label className="checkbox-label">
+                  <input 
+                    type="checkbox" 
+                    checked={selectedAmenities.includes('Laundry')} 
+                    onChange={() => handleAmenityToggle('Laundry')} 
+                  />
+                  <span>Paid Laundry Services</span>
                 </label>
                 <label className="checkbox-label">
                   <input 

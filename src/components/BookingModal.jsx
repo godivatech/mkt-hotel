@@ -18,7 +18,7 @@ export default function BookingModal({ isOpen, onClose, initialData = {} }) {
   const [loading, setLoading] = useState(false);
   const [checkIn, setCheckIn] = useState(initialData.checkIn || today);
   const [checkOut, setCheckOut] = useState(initialData.checkOut || tomorrow);
-  const [selectedRoomId, setSelectedRoomId] = useState(initialData.roomId || 'deluxe-queen-room');
+  const [selectedRoomId, setSelectedRoomId] = useState(initialData.roomId || 'executive-double');
   const [guestName, setGuestName] = useState('');
   const [guestPhone, setGuestPhone] = useState('');
   const [specialRequests, setSpecialRequests] = useState('');
@@ -42,9 +42,9 @@ export default function BookingModal({ isOpen, onClose, initialData = {} }) {
   const selectedRoom = roomsData.find(r => 
     r.id === selectedRoomId || 
     r.slug === selectedRoomId ||
-    ((selectedRoomId === 'deluxe-room' || selectedRoomId === 'executive-double-room') && r.id === 'deluxe-queen-room') ||
-    ((selectedRoomId === 'family-suite' || selectedRoomId === 'family-quadruple-room') && r.id === 'quadruple-room') ||
-    ((selectedRoomId === 'suite-room' || selectedRoomId === 'family-studio-suite') && r.id === 'family-room')
+    ((selectedRoomId === 'deluxe-queen-room' || selectedRoomId === 'deluxe-room') && r.id === 'executive-double') ||
+    ((selectedRoomId === 'quadruple-room' || selectedRoomId === 'family-quadruple-room') && r.id === 'executive-four-fold') ||
+    ((selectedRoomId === 'family-room' || selectedRoomId === 'suite-room' || selectedRoomId === 'family-studio-suite') && r.id === 'family-suite')
   ) || roomsData[0];
 
   // Calculate nights
@@ -53,8 +53,8 @@ export default function BookingModal({ isOpen, onClose, initialData = {} }) {
   const diffTime = Math.max(1, Math.round((checkOutDate - checkInDate) / (1000 * 60 * 60 * 24)));
   const nights = isNaN(diffTime) || diffTime <= 0 ? 1 : diffTime;
   const totalPrice = selectedRoom.price * nights;
-  const gst = Math.round(totalPrice * 0.12);
-  const finalAmount = totalPrice + gst;
+  // Room rates are inclusive of tax
+  const finalAmount = totalPrice;
 
   // Validation handlers
   const handleCheckInChange = (newDate) => {
@@ -145,7 +145,7 @@ export default function BookingModal({ isOpen, onClose, initialData = {} }) {
       roomRate: selectedRoom.price,
       totalAmount: finalAmount,
       tariffEstimate: totalPrice,
-      gstAmount: gst,
+      taxNote: 'Inclusive Tax',
       currency: 'INR'
     });
 
@@ -194,7 +194,7 @@ export default function BookingModal({ isOpen, onClose, initialData = {} }) {
                 >
                   {roomsData.map(r => (
                     <option key={r.id} value={r.id}>
-                      {r.name} — {r.priceFormatted}/night ({r.capacity})
+                      {r.name} — {r.priceFormatted}/night (Inclusive Tax)
                     </option>
                   ))}
                 </select>
@@ -297,16 +297,18 @@ export default function BookingModal({ isOpen, onClose, initialData = {} }) {
                   <span>{selectedRoom.name} × {nights} {nights > 1 ? 'nights' : 'night'}</span>
                   <span>₹{totalPrice.toLocaleString('en-IN')}</span>
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.4rem', color: 'var(--text-muted)' }}>
-                  <span>Taxes & GST (12%)</span>
-                  <span>₹{gst.toLocaleString('en-IN')}</span>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
+                  <span style={{ color: 'var(--text-muted)' }}>Taxes & GST (12%)</span>
+                  <span style={{ backgroundColor: 'rgba(0, 109, 111, 0.1)', color: 'var(--primary)', fontWeight: 600, padding: '2px 8px', borderRadius: '4px', fontSize: '0.8rem' }}>
+                    Inclusive Tax
+                  </span>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: '0.5rem', borderTop: '1px solid var(--border)', fontWeight: 700, fontSize: '1.05rem', color: 'var(--dark)' }}>
                   <span>Estimated Total</span>
                   <span style={{ color: 'var(--primary)' }}>₹{finalAmount.toLocaleString('en-IN')}</span>
                 </div>
                 <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', display: 'block', marginTop: '0.35rem' }}>
-                  *Pay directly at hotel reception during check-in. No advance card required.
+                  *All taxes included. Pay directly at hotel reception during check-in. No advance card required.
                 </span>
               </div>
 

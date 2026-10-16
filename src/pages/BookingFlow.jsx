@@ -14,7 +14,7 @@ const getNextDayStr = (dateStr) => {
 export default function BookingFlow() {
   const [searchParams] = useSearchParams();
   const today = new Date().toISOString().split('T')[0];
-  const initialRoom = searchParams.get('room') || 'deluxe-queen-room';
+  const initialRoom = searchParams.get('room') || 'executive-double';
   const initialCheckIn = searchParams.get('checkIn') || today;
   const initialCheckOut = searchParams.get('checkOut') || getNextDayStr(initialCheckIn);
 
@@ -37,9 +37,9 @@ export default function BookingFlow() {
   const selectedRoom = roomsData.find(r => 
     r.id === selectedRoomId || 
     r.slug === selectedRoomId ||
-    ((selectedRoomId === 'deluxe-room' || selectedRoomId === 'executive-double-room') && r.id === 'deluxe-queen-room') ||
-    ((selectedRoomId === 'family-suite' || selectedRoomId === 'family-quadruple-room') && r.id === 'quadruple-room') ||
-    ((selectedRoomId === 'suite-room' || selectedRoomId === 'family-studio-suite') && r.id === 'family-room')
+    ((selectedRoomId === 'deluxe-queen-room' || selectedRoomId === 'deluxe-room') && r.id === 'executive-double') ||
+    ((selectedRoomId === 'quadruple-room' || selectedRoomId === 'family-quadruple-room') && r.id === 'executive-four-fold') ||
+    ((selectedRoomId === 'family-room' || selectedRoomId === 'suite-room' || selectedRoomId === 'family-studio-suite') && r.id === 'family-suite')
   ) || roomsData[0];
 
   // Calculate nights
@@ -48,8 +48,8 @@ export default function BookingFlow() {
   const diffTime = Math.max(1, Math.round((checkOutDate - checkInDate) / (1000 * 60 * 60 * 24)));
   const nights = isNaN(diffTime) || diffTime <= 0 ? 1 : diffTime;
   const roomTotal = selectedRoom.price * nights;
-  const gst = Math.round(roomTotal * 0.12);
-  const finalTotal = roomTotal + gst;
+  // Rates are inclusive of taxes
+  const finalTotal = roomTotal;
 
   // Validation handlers
   const handleCheckInChange = (newDate) => {
@@ -140,7 +140,7 @@ export default function BookingFlow() {
       roomRate: selectedRoom.price,
       totalAmount: finalTotal,
       tariffEstimate: roomTotal,
-      gstAmount: gst,
+      taxNote: 'Inclusive Tax',
       currency: 'INR'
     });
 
@@ -184,7 +184,7 @@ export default function BookingFlow() {
                 {/* Choose Room */}
                 <div className="form-group">
                   <label className="form-label">Select Accommodation</label>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1rem' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1rem' }}>
                     {roomsData.map((r) => (
                       <div 
                         key={r.id}
@@ -192,18 +192,19 @@ export default function BookingFlow() {
                         style={{
                           border: `2px solid ${selectedRoomId === r.id ? 'var(--primary)' : 'var(--border)'}`,
                           borderRadius: 'var(--radius-md)',
-                          padding: '1rem',
+                          padding: '1.1rem',
                           cursor: 'pointer',
-                          backgroundColor: selectedRoomId === r.id ? 'rgba(0,109,111,0.03)' : 'var(--surface)',
+                          backgroundColor: selectedRoomId === r.id ? 'rgba(0,109,111,0.04)' : 'var(--surface)',
                           transition: 'all var(--transition-fast)'
                         }}
                       >
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.25rem' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.35rem' }}>
                           <span style={{ fontWeight: 700, color: 'var(--dark)' }}>{r.name}</span>
                           <span style={{ fontWeight: 800, color: 'var(--primary)' }}>{r.priceFormatted}</span>
                         </div>
-                        <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-                          {r.capacity} • {r.bedType}
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.82rem', color: 'var(--text-muted)' }}>
+                          <span>{r.capacity} • {r.bedType}</span>
+                          <span style={{ color: 'var(--primary)', fontWeight: 600, fontSize: '0.75rem', backgroundColor: 'rgba(0,109,111,0.08)', padding: '2px 7px', borderRadius: '4px' }}>Inclusive Tax</span>
                         </div>
                       </div>
                     ))}
@@ -307,14 +308,19 @@ export default function BookingFlow() {
                     <span>{selectedRoom.name} ({nights} {nights > 1 ? 'nights' : 'night'})</span>
                     <span>₹{roomTotal.toLocaleString('en-IN')}</span>
                   </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', color: 'var(--text-muted)' }}>
-                    <span>Applicable Hotel GST (12%)</span>
-                    <span>₹{gst.toLocaleString('en-IN')}</span>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                    <span style={{ color: 'var(--text-muted)' }}>Applicable Hotel GST (12%)</span>
+                    <span style={{ backgroundColor: 'rgba(0, 109, 111, 0.1)', color: 'var(--primary)', fontWeight: 600, padding: '2px 8px', borderRadius: '4px', fontSize: '0.82rem' }}>
+                      Inclusive Tax
+                    </span>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: '0.75rem', borderTop: '1px solid var(--border)', fontWeight: 800, fontSize: '1.2rem', color: 'var(--dark)' }}>
                     <span>Net Payable at Hotel</span>
                     <span style={{ color: 'var(--primary)' }}>₹{finalTotal.toLocaleString('en-IN')}</span>
                   </div>
+                  <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)', display: 'block', marginTop: '0.45rem' }}>
+                    *All taxes and GST included in tariff. Pay upon check-in at front desk.
+                  </span>
                 </div>
 
                 <button 

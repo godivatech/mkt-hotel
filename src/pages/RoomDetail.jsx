@@ -16,9 +16,9 @@ export default function RoomDetail({ onOpenBooking }) {
   const room = roomsData.find(r => 
     r.slug === slug || 
     r.id === slug ||
-    ((slug === 'deluxe-room' || slug === 'executive-double-room') && r.id === 'deluxe-queen-room') ||
-    ((slug === 'family-suite' || slug === 'family-quadruple-room') && r.id === 'quadruple-room') ||
-    ((slug === 'suite-room' || slug === 'family-studio-suite') && r.id === 'family-room')
+    ((slug === 'deluxe-queen-room' || slug === 'deluxe-room' || slug === 'executive-double-room') && (r.id === 'executive-double' || r.id === 'deluxe-queen-room')) ||
+    ((slug === 'quadruple-room' || slug === 'executive-four-fold-room' || slug === 'family-quadruple-room') && (r.id === 'executive-four-fold' || r.id === 'quadruple-room')) ||
+    ((slug === 'family-room' || slug === 'family-suite' || slug === 'suite-room' || slug === 'family-studio-suite') && (r.id === 'family-suite' || r.id === 'family-room'))
   ) || roomsData[0];
 
   const [activeTab, setActiveTab] = useState('overview');
@@ -120,15 +120,19 @@ export default function RoomDetail({ onOpenBooking }) {
                   </div>
                 </div>
 
-                <div style={{ textAlign: 'right', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '0.5rem' }}>
+                <div style={{ textAlign: 'right', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '0.35rem' }}>
                   <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.25rem' }}>
                     <span style={{ fontSize: '1.8rem', fontWeight: 800, color: 'var(--dark)' }}>{room.priceFormatted}</span>
                     <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>/ night</span>
                   </div>
+                  <span style={{ fontSize: '0.78rem', color: '#166534', backgroundColor: '#f0fdf4', border: '1px solid #bbf7d0', padding: '2px 9px', borderRadius: '9999px', fontWeight: 600 }}>
+                    Inclusive Tax
+                  </span>
                   <button 
                     type="button" 
                     onClick={() => onOpenBooking(room.id)}
                     className="btn btn-primary"
+                    style={{ marginTop: '0.25rem' }}
                   >
                     Book Now
                     <ArrowRight size={16} />
@@ -239,6 +243,9 @@ export default function RoomDetail({ onOpenBooking }) {
                   <div style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--dark)' }}>
                     {room.priceFormatted} <span style={{ fontSize: '0.85rem', fontWeight: 400, color: 'var(--text-muted)' }}>/ night</span>
                   </div>
+                  <span style={{ fontSize: '0.76rem', color: '#166534', fontWeight: 600, display: 'inline-block', marginTop: '3px' }}>
+                    Inclusive Tax (No Extra Charges)
+                  </span>
                 </div>
                 <span className="badge badge-teal">Direct Rate</span>
               </div>

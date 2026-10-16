@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { 
+import {
   User, Phone, Calendar, ArrowRight, PhoneCall, ChevronDown,
   Clock, MapPin, Car, Users, Ticket, Accessibility,
   CheckCircle2, Compass, ShieldCheck, Check, Sparkles, MessageSquare
@@ -302,53 +302,6 @@ export default function Services() {
       highlights: ['Encircled by Sea Waters', 'Sole Survivor of 1964 Cyclone', 'Vibhishana Pattabhishekam Site', 'Tranquil Marine Atmosphere'],
       timings: '7:00 AM – 5:30 PM',
       bestFor: 'Ramayana Legend & Coastal Solitude'
-    }
-  ];
-
-  // Curated Sightseeing Itineraries
-  const sightseeingTours = [
-    {
-      id: 'tour-half-day',
-      badge: 'Most Popular',
-      title: 'Half-Day Island Sightseeing Tour',
-      duration: '4 – 5 Hours',
-      vehicle: 'AC Sedan / SUV with Chauffeur',
-      covers: [
-        'Ramar Patham (Highest Hilltop Point)',
-        'Dr. A.P.J. Abdul Kalam National Memorial',
-        'Villoondi Theertham (Sweet Water in the Sea)',
-        'Lakshmana & Sita Theertham',
-        'Pamban Sea Bridge Sunset Viewpoint'
-      ],
-      features: [
-        'Doorstep hotel pickup & drop at MKT Shanthi Nivas',
-        'Courteous Tamil & Hindi speaking local driver',
-        'All fuel, island entry & parking fees covered',
-        'Flexible halts for photography & coconut water'
-      ],
-      idealFor: 'Pilgrims with limited time wanting complete island highlights'
-    },
-    {
-      id: 'tour-full-day',
-      badge: 'Complete Experience',
-      title: 'Full-Day Dhanushkodi & Rameswaram Tour',
-      duration: '7 – 8 Hours',
-      vehicle: 'AC Sedan / SUV / Tempo Traveller',
-      covers: [
-        'Early Morning Temple & Agni Theertham assistance',
-        'Dhanushkodi Ghost Town & 1964 Church Ruins',
-        'Arichal Munai (Land’s End Ocean Confluence)',
-        'Kothandaramaswamy Coastal Temple',
-        'Dr. A.P.J. Abdul Kalam National Memorial',
-        'Pamban Cantilever Bridge Ocean Train crossing'
-      ],
-      features: [
-        'Full day dedicated AC cab at your service',
-        'Coordinated sunrise or sunset at Arichal Munai',
-        'Beach entry permit assistance & local guidance',
-        'Complimentary luggage storage at hotel'
-      ],
-      idealFor: 'Families & groups seeking a memorable, unhurried full-day tour'
     }
   ];
 
@@ -795,80 +748,6 @@ export default function Services() {
                 </div>
               </div>
             ))}
-          </div>
-
-          {/* CURATED SIGHTSEEING PACKAGES / ITINERARIES */}
-          <div className="sightseeing-tours-wrapper">
-            <div className="tours-section-intro">
-              <span className="eyebrow-accent">CURATED ITINERARIES</span>
-              <h3 className="tours-section-title">Popular Sightseeing Tours &amp; Day Trips</h3>
-              <p className="tours-section-desc">
-                Choose from our popular guided itineraries with doorstep hotel pickup from MKT Shanthi Nivas.
-              </p>
-            </div>
-
-            <div className="tours-cards-grid">
-              {sightseeingTours.map((tour) => (
-                <div className="curated-tour-card" key={tour.id}>
-                  <div className="tour-card-top">
-                    <div className="tour-badge-row">
-                      <span className="tour-popularity-badge">{tour.badge}</span>
-                      <span className="tour-duration-pill">
-                        <Clock size={14} /> {tour.duration}
-                      </span>
-                    </div>
-                    <h4 className="tour-title">{tour.title}</h4>
-                    <div className="tour-vehicle-row">
-                      <Car size={16} /> <span>{tour.vehicle}</span>
-                    </div>
-                  </div>
-
-                  <div className="tour-card-middle">
-                    <h5 className="tour-subheading">Destinations Covered:</h5>
-                    <ul className="tour-stops-list">
-                      {tour.covers.map((c, i) => (
-                        <li key={i}>
-                          <MapPin size={14} className="stop-icon" />
-                          <span>{c}</span>
-                        </li>
-                      ))}
-                    </ul>
-
-                    <h5 className="tour-subheading">Package Inclusions:</h5>
-                    <ul className="tour-features-list">
-                      {tour.features.map((f, i) => (
-                        <li key={i}>
-                          <Check size={14} className="feature-check-icon" />
-                          <span>{f}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div className="tour-card-bottom">
-                    <p className="tour-ideal-note">
-                      <strong>Best for:</strong> {tour.idealFor}
-                    </p>
-                    <div className="tour-cta-buttons">
-                      <a
-                        href={`https://wa.me/918300236666?text=Hello%20MKT%20Shanthi%20Nivas%2C%20I%20am%20interested%20in%20the%20${encodeURIComponent(tour.title)}.`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn-tour-whatsapp"
-                      >
-                        <MessageSquare size={16} /> WhatsApp Booking
-                      </a>
-                      <a
-                        href={`tel:${hotelInfo.phone}`}
-                        className="btn-tour-call"
-                      >
-                        Call to Reserve <ArrowRight size={16} />
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
           </div>
 
           {/* SIGHTSEEING FLEET & CAB BOOKING STRIP */}

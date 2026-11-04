@@ -186,18 +186,18 @@ export default function BookingModal({ isOpen, onClose, initialData = {} }) {
         <button 
           type="button" 
           onClick={handleResetAndClose}
-          style={{ position: 'absolute', top: '1.25rem', right: '1.25rem', color: 'var(--text-muted)' }}
+          className="modal-close-btn"
           aria-label="Close modal"
         >
-          <X size={22} />
+          <X size={20} />
         </button>
 
         {step === 1 ? (
           <div>
-            <div style={{ marginBottom: '1.25rem' }}>
+            <div className="modal-header">
               <span className="eyebrow">RESERVATION REQUEST</span>
-              <h3 style={{ fontSize: '1.5rem', color: 'var(--dark)' }}>Book Your Peaceful Stay</h3>
-              <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)' }}>
+              <h3 className="modal-title">Book Your Peaceful Stay</h3>
+              <p className="modal-subtitle">
                 {hotelInfo.name} • {hotelInfo.address.street}, Rameswaram
               </p>
             </div>
@@ -221,7 +221,7 @@ export default function BookingModal({ isOpen, onClose, initialData = {} }) {
 
               {/* Date Inputs */}
               <div>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                <div className="form-row form-row-2col">
                   <div className="form-group">
                     <label className="form-label">Check-In Date</label>
                     <input 
@@ -253,7 +253,7 @@ export default function BookingModal({ isOpen, onClose, initialData = {} }) {
               </div>
 
               {/* Guest Details */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+              <div className="form-row form-row-2col">
                 <div className="form-group">
                   <label className="form-label">Primary Guest Name</label>
                   <input 
@@ -305,13 +305,7 @@ export default function BookingModal({ isOpen, onClose, initialData = {} }) {
               </div>
 
               {/* Fare Summary Box */}
-              <div style={{
-                backgroundColor: 'var(--surface-alt)',
-                border: '1px solid var(--border)',
-                borderRadius: 'var(--radius-sm)',
-                padding: '1rem',
-                fontSize: '0.9rem'
-              }}>
+              <div className="fare-summary-card">
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.4rem' }}>
                   <span>{selectedRoom.name} × {nights} {nights > 1 ? 'nights' : 'night'}</span>
                   <span>₹{totalPrice.toLocaleString('en-IN')}</span>
@@ -448,7 +442,7 @@ export default function BookingModal({ isOpen, onClose, initialData = {} }) {
               <p><strong>Reception Desk:</strong> {hotelInfo.phone}</p>
             </div>
 
-            <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center' }}>
+            <div className="modal-btn-row">
               <button 
                 type="button" 
                 onClick={handleResetAndClose}

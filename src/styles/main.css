@@ -1737,7 +1737,7 @@ p {
 }
 
 /* -------------------------------------------------------------
-   BOOKING MODAL
+   BOOKING MODAL & RESPONSIVE FORMS
 ------------------------------------------------------------- */
 .modal-backdrop {
   position: fixed;
@@ -1745,25 +1745,238 @@ p {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.68);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 1.5rem;
+  overflow-y: auto;
+  box-sizing: border-box;
 }
 
 .modal-card {
   background-color: var(--surface);
   border-radius: var(--radius-lg);
-  max-width: 560px;
+  max-width: 540px;
   width: 100%;
   padding: 2rem;
   position: relative;
-  box-shadow: var(--shadow-lg);
-  max-height: 90vh;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.28);
+  max-height: calc(100vh - 3rem);
   overflow-y: auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  animation: modalFadeIn 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 1.15rem;
+  right: 1.15rem;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--surface-alt);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  z-index: 5;
+}
+
+.modal-close-btn:hover {
+  background: var(--border);
+  color: var(--dark);
+}
+
+.modal-header {
+  padding-right: 2.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.modal-title {
+  font-size: 1.45rem;
+  color: var(--dark);
+  font-weight: 700;
+  line-height: 1.25;
+  margin: 0.2rem 0 0.35rem;
+}
+
+.modal-subtitle {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* Responsive Two-Column Form Row (Auto-stacks on mobile) */
+.form-row-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-row-2col > * {
+  min-width: 0; /* Prevents overflow inside grid cells */
+}
+
+/* Fare summary card */
+.fare-summary-card {
+  background-color: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 1rem;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+}
+
+/* Modal action buttons row */
+.modal-btn-row {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Inputs across all screen sizes */
+.input-control,
+.select-control {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+input[type="date"].input-control {
+  min-height: 42px;
+  font-family: inherit;
+  font-size: 0.92rem;
+  cursor: pointer;
+}
+
+/* Modal Responsive Media Queries for All Breakpoints */
+@media (max-width: 768px) {
+  .modal-backdrop {
+    padding: 1rem;
+  }
+
+  .modal-card {
+    padding: 1.5rem;
+    max-height: calc(100vh - 2rem);
+    border-radius: var(--radius-md);
+  }
+
+  .booking-flow-card {
+    padding: 1.5rem !important;
+  }
+}
+
+@media (max-width: 580px) {
+  .modal-backdrop {
+    padding: 0.75rem 0.5rem;
+    align-items: center;
+  }
+
+  .modal-card {
+    padding: 1.25rem 1rem 1.4rem;
+    max-height: calc(100vh - 1.25rem);
+    border-radius: var(--radius-md);
+  }
+
+  /* Form row stacks to 1 column on mobile screens */
+  .form-row-2col {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+  }
+
+  .modal-header {
+    padding-right: 2.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .modal-title {
+    font-size: 1.22rem;
+  }
+
+  .modal-subtitle {
+    font-size: 0.82rem;
+  }
+
+  .modal-close-btn {
+    top: 0.85rem;
+    right: 0.85rem;
+    width: 32px;
+    height: 32px;
+  }
+
+  /* 16px font-size prevents iOS Safari viewport auto-zoom */
+  .input-control,
+  .select-control {
+    font-size: 16px;
+    padding: 0.65rem 0.75rem;
+  }
+
+  input[type="date"].input-control {
+    font-size: 15px;
+  }
+
+  .fare-summary-card {
+    padding: 0.85rem;
+    font-size: 0.85rem;
+  }
+
+  .modal-btn-row {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .modal-btn-row > * {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 380px) {
+  .modal-backdrop {
+    padding: 0.35rem;
+  }
+
+  .modal-card {
+    padding: 1rem 0.75rem 1.25rem;
+    border-radius: 8px;
+  }
+
+  .modal-title {
+    font-size: 1.12rem;
+  }
+
+  .modal-subtitle {
+    font-size: 0.76rem;
+  }
+
+  .input-control,
+  .select-control {
+    padding: 0.55rem 0.65rem;
+  }
 }
 
 /* -------------------------------------------------------------

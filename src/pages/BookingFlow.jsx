@@ -191,7 +191,7 @@ export default function BookingFlow() {
       <section className="section-spacing">
         <div className="container container-narrow">
           {!bookingConfirmed ? (
-            <div style={{ backgroundColor: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 'var(--radius-lg)', padding: '2.5rem', boxShadow: 'var(--shadow-md)' }}>
+            <div className="booking-flow-card" style={{ backgroundColor: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 'var(--radius-lg)', padding: '2rem', boxShadow: 'var(--shadow-md)' }}>
               <div style={{ marginBottom: '2rem', paddingBottom: '1.25rem', borderBottom: '1px solid var(--border)' }}>
                 <span className="eyebrow">STEP 1 OF 1</span>
                 <h2 style={{ fontSize: '1.8rem', color: 'var(--dark)' }}>Guest & Reservation Details</h2>
@@ -233,7 +233,7 @@ export default function BookingFlow() {
 
                 {/* Dates */}
                 <div>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                  <div className="form-row form-row-2col">
                     <div className="form-group">
                       <label className="form-label">Check-In Date</label>
                       <input 
@@ -265,7 +265,7 @@ export default function BookingFlow() {
                 </div>
 
                 {/* Guest Contact */}
-                <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '1rem' }}>
+                <div className="form-row form-row-2col">
                   <div className="form-group">
                     <label className="form-label">Full Name of Primary Guest</label>
                     <input 

@@ -210,6 +210,13 @@
   background: rgba(0, 0, 0, 0.65);
   z-index: 6;
   gap: 14px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.video-autoplay-blocked-overlay:hover .video-big-play-btn {
+  transform: scale(1.08);
+  background: #E8AF73;
 }
 
 .video-big-play-btn {

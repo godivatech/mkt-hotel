@@ -48,9 +48,10 @@ export default function WelcomeVideoModal({
 
     window.addEventListener('keydown', handleKeyDown);
 
-    // Attempt video playback with sound enabled by default
+    // Attempt video playback when modal opens
     const playTimer = setTimeout(() => {
       if (videoRef.current) {
+        // Step 1: Try playing with sound by default
         videoRef.current.defaultMuted = false;
         videoRef.current.muted = false;
         setIsMuted(false);
@@ -62,12 +63,25 @@ export default function WelcomeVideoModal({
               setIsBuffering(false);
               setAutoplayBlocked(false);
             })
-            .catch((err) => {
-              // Autoplay with sound requires user gesture in strict browser environments
-              console.warn('[WelcomeVideoModal] Autoplay with sound restricted by browser policy:', err?.message || err);
-              setAutoplayBlocked(true);
-              setIsBuffering(false);
-              setIsPlaying(false);
+            .catch(() => {
+              // Step 2: Browser blocked unmuted autoplay.
+              // Immediately start playing muted so the video automatically plays without stopping!
+              if (videoRef.current) {
+                videoRef.current.muted = true;
+                setIsMuted(true);
+                videoRef.current.play()
+                  .then(() => {
+                    setIsPlaying(true);
+                    setIsBuffering(false);
+                    setAutoplayBlocked(false);
+                  })
+                  .catch((err2) => {
+                    console.warn('[WelcomeVideoModal] Autoplay blocked:', err2);
+                    setAutoplayBlocked(true);
+                    setIsBuffering(false);
+                    setIsPlaying(false);
+                  });
+              }
             });
         }
       }
@@ -107,7 +121,34 @@ export default function WelcomeVideoModal({
     }
   };
 
-  // 4. Play / Pause toggle
+  // 4. Guaranteed start play handler (called when clicking overlay / big play button)
+  const handleStartPlay = (e) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    if (!videoRef.current) return;
+
+    videoRef.current.muted = false;
+    setIsMuted(false);
+    videoRef.current.play()
+      .then(() => {
+        setIsPlaying(true);
+        setAutoplayBlocked(false);
+      })
+      .catch((err) => {
+        console.warn('[WelcomeVideoModal] Play error on click, falling back to muted:', err);
+        if (videoRef.current) {
+          videoRef.current.muted = true;
+          videoRef.current.play().then(() => {
+            setIsPlaying(true);
+            setAutoplayBlocked(false);
+          }).catch(() => {});
+        }
+      });
+  };
+
+  // 5. Play / Pause toggle (for keyboard space / K or container clicks)
   const togglePlay = () => {
     if (!videoRef.current) return;
     if (videoRef.current.paused) {
@@ -125,7 +166,15 @@ export default function WelcomeVideoModal({
     }
   };
 
-  // 5. Retry handler for errors
+  // 6. If playing muted, clicking the video un-mutes audio
+  const handleVideoClick = () => {
+    if (videoRef.current && videoRef.current.muted) {
+      videoRef.current.muted = false;
+      setIsMuted(false);
+    }
+  };
+
+  // 7. Retry handler for errors
   const handleRetry = () => {
     setHasError(false);
     setIsBuffering(true);
@@ -202,6 +251,7 @@ export default function WelcomeVideoModal({
             playsInline
             controls
             preload="auto"
+            onClick={handleVideoClick}
             onLoadedData={() => setIsBuffering(false)}
             onCanPlay={() => setIsBuffering(false)}
             onWaiting={() => {
@@ -235,15 +285,16 @@ export default function WelcomeVideoModal({
 
           {/* Autoplay Blocked Fallback (Click to Start with Sound) */}
           {autoplayBlocked && !isPlaying && !hasError && (
-            <div className="video-autoplay-blocked-overlay" onClick={togglePlay}>
-              <button 
-                type="button" 
-                className="video-big-play-btn"
-                onClick={togglePlay}
-                aria-label="Play Hotel Tour Video with Sound"
-              >
+            <div 
+              className="video-autoplay-blocked-overlay" 
+              onClick={handleStartPlay}
+              role="button"
+              tabIndex={0}
+              aria-label="Play Hotel Tour Video with Sound"
+            >
+              <div className="video-big-play-btn">
                 <Play size={32} style={{ marginLeft: '4px' }} />
-              </button>
+              </div>
               <span className="video-big-play-label">Click to Play Hotel Tour</span>
             </div>
           )}

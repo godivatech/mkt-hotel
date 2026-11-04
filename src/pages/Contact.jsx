@@ -4,10 +4,12 @@ import { MapPin, Phone, Clock, Send, CheckCircle, Landmark, ShieldCheck, AlertCi
 import { hotelInfo, faqData } from '../data/hotelData';
 import SectionHeading from '../components/SectionHeading';
 import { saveEnquiry } from '../services/firebase';
+import { WhatsAppIcon, buildEnquiryWhatsAppUrl, openWhatsAppUrl, CLIENT_PHONE_DISPLAY } from '../utils/whatsapp';
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [whatsappUrl, setWhatsappUrl] = useState('');
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -57,7 +59,7 @@ export default function Contact() {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     let hasError = false;
@@ -86,13 +88,25 @@ export default function Contact() {
 
     setLoading(true);
 
-    // Save to Firestore subcollection: websites/mkt-shanthi-nivas/enquiries
-    await saveEnquiry({
+    // Format WhatsApp message for Client WhatsApp (+91 83002 36666)
+    const waLink = buildEnquiryWhatsAppUrl({
+      name: formData.name.trim(),
+      phone: cleanedPhone,
+      dates: formData.dates.trim(),
+      message: formData.message.trim()
+    });
+    setWhatsappUrl(waLink);
+
+    // Open WhatsApp immediately
+    openWhatsAppUrl(waLink);
+
+    // Save to Firestore subcollection in background
+    saveEnquiry({
       name: formData.name.trim(),
       phone: cleanedPhone,
       dates: formData.dates.trim() || 'Not specified',
       message: formData.message.trim()
-    });
+    }).catch(err => console.warn('[Firebase] saveEnquiry error:', err));
 
     setLoading(false);
     setSubmitted(true);
@@ -194,6 +208,31 @@ export default function Contact() {
                     <p style={{ color: 'var(--text-muted)', fontSize: '0.92rem' }}>
                       Your message has been received. Our team will contact you shortly on {formData.phone || 'your phone'}.
                     </p>
+
+                    <div style={{ marginTop: '1.25rem' }}>
+                      <a 
+                        href={whatsappUrl} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="btn"
+                        style={{
+                          backgroundColor: '#25D366',
+                          color: '#FFFFFF',
+                          fontWeight: 700,
+                          fontSize: '0.92rem',
+                          padding: '0.7rem 1.25rem',
+                          borderRadius: 'var(--radius-sm)',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '0.5rem',
+                          textDecoration: 'none',
+                          boxShadow: '0 4px 12px rgba(37, 211, 102, 0.35)'
+                        }}
+                      >
+                        <WhatsAppIcon size={18} color="#FFFFFF" />
+                        Chat on WhatsApp ({CLIENT_PHONE_DISPLAY})
+                      </a>
+                    </div>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
@@ -267,10 +306,21 @@ export default function Contact() {
                     <button 
                       type="submit" 
                       className="btn btn-primary btn-full"
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '0.6rem',
+                        fontWeight: 700
+                      }}
                       disabled={loading}
                     >
-                      <Send size={16} /> {loading ? 'Sending Enquiry...' : 'Send Enquiry'}
+                      <WhatsAppIcon size={18} color="#FFFFFF" />
+                      {loading ? 'Opening WhatsApp...' : 'Send Enquiry via WhatsApp'}
                     </button>
+                    <div style={{ textAlign: 'center', fontSize: '0.78rem', color: 'var(--text-muted)' }}>
+                      Direct enquiry sent to Client WhatsApp ({CLIENT_PHONE_DISPLAY})
+                    </div>
                   </form>
                 )}
               </div>

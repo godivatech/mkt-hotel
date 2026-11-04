@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import { hotelInfo } from '../data/hotelData';
 import { saveEnquiry } from '../services/firebase';
+import { WhatsAppIcon, buildEnquiryWhatsAppUrl, openWhatsAppUrl, CLIENT_PHONE_DISPLAY } from '../utils/whatsapp';
 
 // Pixel-perfect custom SVG icons matching the reference image
 const GopuramIcon = ({ size = 26, color = "currentColor", className = "" }) => (
@@ -430,9 +431,11 @@ export default function Services() {
                 <button
                   type="submit"
                   className="btn-send-enquiry"
+                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}
                   disabled={formStatus.loading}
                 >
-                  {formStatus.loading ? 'Sending...' : 'Send Enquiry'} <ArrowRight size={18} />
+                  <WhatsAppIcon size={18} color="#FFFFFF" />
+                  {formStatus.loading ? 'Opening...' : 'Send Enquiry via WhatsApp'}
                 </button>
               </form>
 

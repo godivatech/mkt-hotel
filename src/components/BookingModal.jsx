@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { X, CheckCircle, Calendar, Users, Phone, User, ShieldCheck, ArrowRight, AlertCircle } from 'lucide-react';
 import { roomsData, hotelInfo } from '../data/hotelData';
 import { saveBooking } from '../services/firebase';
+import { WhatsAppIcon, buildBookingWhatsAppUrl, openWhatsAppUrl, CLIENT_PHONE_DISPLAY } from '../utils/whatsapp';
 
 const getNextDayStr = (dateStr) => {
   if (!dateStr) return '';
@@ -23,6 +24,7 @@ export default function BookingModal({ isOpen, onClose, initialData = {} }) {
   const [guestPhone, setGuestPhone] = useState('');
   const [specialRequests, setSpecialRequests] = useState('');
   const [confirmationCode, setConfirmationCode] = useState('');
+  const [whatsappUrl, setWhatsappUrl] = useState('');
 
   // Validation error states
   const [nameError, setNameError] = useState('');
@@ -101,7 +103,7 @@ export default function BookingModal({ isOpen, onClose, initialData = {} }) {
     }
   };
 
-  const handleConfirmBooking = async (e) => {
+  const handleConfirmBooking = (e) => {
     e.preventDefault();
 
     let hasError = false;
@@ -131,8 +133,25 @@ export default function BookingModal({ isOpen, onClose, initialData = {} }) {
     const code = 'MKT-' + Math.floor(100000 + Math.random() * 900000);
     setConfirmationCode(code);
 
-    // Save to Firestore subcollection: websites/mkt-shanthi-nivas/bookings
-    await saveBooking({
+    // Build direct WhatsApp link with all booking details for client number 83002 36666
+    const waLink = buildBookingWhatsAppUrl({
+      bookingCode: code,
+      guestName: guestName.trim(),
+      guestPhone: cleanedPhone,
+      roomName: selectedRoom.name,
+      checkIn,
+      checkOut,
+      nights,
+      totalAmount: finalAmount,
+      specialRequests: specialRequests.trim()
+    });
+    setWhatsappUrl(waLink);
+
+    // Open WhatsApp directly without delay
+    openWhatsAppUrl(waLink);
+
+    // Save to Firestore in background safely without blocking UI
+    saveBooking({
       bookingCode: code,
       roomId: selectedRoom.id,
       roomName: selectedRoom.name,
@@ -147,7 +166,7 @@ export default function BookingModal({ isOpen, onClose, initialData = {} }) {
       tariffEstimate: totalPrice,
       taxNote: 'Inclusive Tax',
       currency: 'INR'
-    });
+    }).catch(err => console.warn('[Firebase] saveBooking error:', err));
 
     setLoading(false);
     setStep(2);
@@ -316,12 +335,23 @@ export default function BookingModal({ isOpen, onClose, initialData = {} }) {
               <button 
                 type="submit" 
                 className="btn btn-secondary btn-full btn-lg" 
-                style={{ marginTop: '0.5rem' }}
+                style={{ 
+                  marginTop: '0.5rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '0.6rem',
+                  fontSize: '1rem',
+                  fontWeight: 700
+                }}
                 disabled={loading}
               >
-                {loading ? 'Securing Reservation...' : 'Confirm Reservation Request'}
-                {!loading && <ArrowRight size={18} />}
+                <WhatsAppIcon size={20} color="#FFFFFF" />
+                {loading ? 'Opening WhatsApp...' : 'Confirm Reservation via WhatsApp'}
               </button>
+              <div style={{ textAlign: 'center', fontSize: '0.78rem', color: 'var(--text-muted)' }}>
+                Direct booking request sent to Client WhatsApp ({CLIENT_PHONE_DISPLAY})
+              </div>
             </form>
           </div>
         ) : (
@@ -362,6 +392,45 @@ export default function BookingModal({ isOpen, onClose, initialData = {} }) {
               marginBottom: '1.5rem'
             }}>
               {confirmationCode}
+            </div>
+
+            {/* Direct WhatsApp Action Card */}
+            <div style={{
+              backgroundColor: 'rgba(37, 211, 102, 0.08)',
+              border: '1px solid rgba(37, 211, 102, 0.35)',
+              borderRadius: 'var(--radius-md)',
+              padding: '1.25rem',
+              marginBottom: '1.5rem',
+              textAlign: 'center'
+            }}>
+              <div style={{ fontWeight: 700, color: '#128C7E', fontSize: '1rem', marginBottom: '0.35rem' }}>
+                Connect with Hotel on WhatsApp
+              </div>
+              <p style={{ fontSize: '0.86rem', color: 'var(--text-muted)', marginBottom: '0.9rem' }}>
+                Your reservation details are ready for Client WhatsApp ({CLIENT_PHONE_DISPLAY}). If WhatsApp did not open automatically, tap below:
+              </p>
+              <a 
+                href={whatsappUrl} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="btn"
+                style={{
+                  backgroundColor: '#25D366',
+                  color: '#FFFFFF',
+                  fontWeight: 700,
+                  fontSize: '0.96rem',
+                  padding: '0.75rem 1.4rem',
+                  borderRadius: 'var(--radius-sm)',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.55rem',
+                  textDecoration: 'none',
+                  boxShadow: '0 4px 12px rgba(37, 211, 102, 0.35)'
+                }}
+              >
+                <WhatsAppIcon size={20} color="#FFFFFF" />
+                Open in WhatsApp ({CLIENT_PHONE_DISPLAY})
+              </a>
             </div>
 
             <div style={{

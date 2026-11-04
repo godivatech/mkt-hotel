@@ -1,0 +1,581 @@
+/* ==========================================================================
+   WELCOME VIDEO POPUP & REPLAY TRIGGER
+   MKT Shanthi Nivas - Elegant Video Modal (Version 2 Brand Aesthetics)
+   ========================================================================== */
+
+/* 1. BACKDROP OVERLAY */
+.video-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(18, 10, 8, 0.88);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  box-sizing: border-box;
+  animation: videoModalFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes videoModalFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* 2. MODAL CARD CONTAINER */
+.video-modal-card {
+  position: relative;
+  width: 94vw;
+  max-width: 920px;
+  max-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #2e120d 0%, #1c0a07 100%);
+  border: 1px solid rgba(218, 155, 90, 0.45);
+  border-radius: 18px;
+  box-shadow: 
+    0 25px 60px -10px rgba(0, 0, 0, 0.85),
+    0 0 45px rgba(218, 155, 90, 0.15);
+  overflow: hidden;
+  box-sizing: border-box;
+  animation: videoModalScaleIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes videoModalScaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* 3. MODAL HEADER */
+.video-modal-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0.85rem 3.5rem 0.85rem 1.25rem;
+  border-bottom: 1px solid rgba(218, 155, 90, 0.2);
+  background: rgba(43, 16, 11, 0.6);
+  box-sizing: border-box;
+}
+
+.video-modal-header-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+  width: 100%;
+}
+
+.video-modal-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent, #DA9B5A);
+}
+
+.video-modal-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(0.95rem, 2.2vw, 1.35rem);
+  font-weight: 600;
+  color: #FFFFFF;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.video-modal-close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(218, 155, 90, 0.35);
+  background: rgba(255, 255, 255, 0.08);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.video-modal-close-btn:hover {
+  background: rgba(218, 155, 90, 0.25);
+  border-color: var(--accent, #DA9B5A);
+  color: #FFFFFF;
+  transform: rotate(90deg) scale(1.06);
+}
+
+.video-modal-close-btn:focus-visible {
+  outline: 2px solid var(--accent, #DA9B5A);
+  outline-offset: 2px;
+}
+
+/* 4. VIDEO PLAYER CONTAINER (16:9 Aspect Ratio) */
+.video-player-container {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  aspect-ratio: 16 / 9;
+  max-height: calc(88vh - 150px);
+  background: #000000;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.video-player-media {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  height: 100%;
+  object-fit: contain;
+  background: #000000;
+  display: block;
+}
+
+/* Buffering / Loading Overlay */
+.video-loading-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(20, 10, 8, 0.75);
+  border: 1px solid rgba(218, 155, 90, 0.3);
+  border-radius: 14px;
+  padding: 16px 24px;
+  z-index: 4;
+  color: #FFFFFF;
+  gap: 10px;
+  pointer-events: none;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.video-spinner {
+  width: 44px;
+  height: 44px;
+  border: 3px solid rgba(218, 155, 90, 0.25);
+  border-top-color: var(--accent, #DA9B5A);
+  border-radius: 50%;
+  animation: videoSpin 0.9s linear infinite;
+}
+
+@keyframes videoSpin {
+  to { transform: rotate(360deg); }
+}
+
+.video-loading-text {
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+
+/* Play Fallback Overlay (if browser blocked autoplay) */
+.video-autoplay-blocked-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.65);
+  z-index: 6;
+  gap: 14px;
+}
+
+.video-big-play-btn {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--accent, #DA9B5A);
+  border: 2px solid #FFFFFF;
+  color: #2B100B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(218, 155, 90, 0.5);
+  transition: all 0.2s ease;
+}
+
+.video-big-play-btn:hover {
+  transform: scale(1.08);
+  background: #E8AF73;
+}
+
+.video-big-play-label {
+  color: #FFFFFF;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+}
+
+/* Error State Fallback */
+.video-error-container {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+  background: #1A0D0A;
+  color: #FFFFFF;
+  gap: 12px;
+  z-index: 7;
+}
+
+.video-error-icon {
+  color: var(--accent, #DA9B5A);
+  margin-bottom: 4px;
+}
+
+.video-error-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.video-error-desc {
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 420px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* 5. MODAL FOOTER & ACTIONS */
+.video-modal-footer {
+  padding: 0.9rem 1.4rem;
+  background: rgba(35, 14, 9, 0.9);
+  border-top: 1px solid rgba(218, 155, 90, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.video-modal-perks {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.video-perk-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.video-perk-item svg {
+  color: var(--accent, #DA9B5A);
+}
+
+.video-modal-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.video-btn-book {
+  background: var(--accent, #DA9B5A);
+  color: #1A0D0A;
+  border: 1px solid var(--accent, #DA9B5A);
+  font-weight: 700;
+  font-size: 0.88rem;
+  padding: 9px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.video-btn-book:hover {
+  background: var(--accent-hover, #C68846);
+  border-color: var(--accent-hover, #C68846);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(218, 155, 90, 0.35);
+  color: #1A0D0A;
+}
+
+.video-btn-rooms {
+  background: transparent;
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  font-weight: 600;
+  font-size: 0.88rem;
+  padding: 9px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.video-btn-rooms:hover {
+  border-color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+}
+
+.video-btn-skip {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 6px 10px;
+  transition: color 0.2s ease;
+}
+
+.video-btn-skip:hover {
+  color: #FFFFFF;
+  text-decoration: underline;
+}
+
+/* 6. FLOATING REPLAY BUTTON (Watch Hotel Tour) */
+.hero-video-tour-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(218, 155, 90, 0.5);
+  color: #FFFFFF;
+  padding: 6px 14px;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 8px;
+  margin-bottom: 6px;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  transition: all 0.2s ease;
+  width: fit-content;
+}
+
+.hero-video-tour-btn:hover {
+  background: rgba(218, 155, 90, 0.25);
+  border-color: var(--accent, #DA9B5A);
+  transform: translateY(-1px);
+  color: #FFFFFF;
+}
+
+.video-float-replay-btn {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  z-index: 998;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #401912 0%, #2B100B 100%);
+  border: 1px solid rgba(218, 155, 90, 0.65);
+  color: #FFFFFF;
+  padding: 10px 18px;
+  border-radius: 50px;
+  box-shadow: 
+    0 6px 20px rgba(64, 25, 18, 0.5),
+    0 0 15px rgba(218, 155, 90, 0.25);
+  cursor: pointer;
+  text-decoration: none;
+  font-family: var(--font-body, 'Poppins', sans-serif);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+}
+
+.video-float-replay-btn:hover {
+  transform: translateY(-3px) scale(1.03);
+  background: linear-gradient(135deg, #5E261C 0%, #38150F 100%);
+  border-color: #E8AF73;
+  box-shadow: 
+    0 8px 24px rgba(64, 25, 18, 0.65),
+    0 0 20px rgba(218, 155, 90, 0.4);
+  color: #FFFFFF;
+}
+
+.video-float-icon-wrap {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--accent, #DA9B5A);
+  color: #2B100B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 0 8px rgba(218, 155, 90, 0.6);
+}
+
+.video-float-label {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+  text-align: left;
+}
+
+.video-float-label strong {
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #FFFFFF;
+}
+
+.video-float-label small {
+  font-size: 0.72rem;
+  color: var(--accent, #DA9B5A);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* 7. RESPONSIVE ADJUSTMENTS */
+@media (max-width: 768px) {
+  .video-modal-backdrop {
+    padding: 0.5rem;
+    align-items: center;
+  }
+
+  .video-modal-card {
+    width: 100%;
+    max-width: calc(100vw - 1rem);
+    border-radius: 14px;
+    max-height: 94vh;
+    margin: auto;
+  }
+
+  .video-modal-header {
+    position: relative;
+    padding: 0.65rem 2.8rem 0.65rem 0.85rem;
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  .video-modal-header-info {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .video-modal-eyebrow {
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .video-modal-title {
+    font-size: 0.95rem;
+    line-height: 1.25;
+    white-space: normal;
+    word-break: break-word;
+  }
+
+  .video-modal-close-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    flex-shrink: 0;
+  }
+
+  .video-modal-footer {
+    padding: 0.65rem 0.85rem;
+  }
+
+  .video-modal-perks {
+    display: none;
+  }
+
+  .video-modal-buttons {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-left: 0;
+  }
+
+  .video-btn-book,
+  .video-btn-rooms {
+    width: 100%;
+    justify-content: center;
+    padding: 9px 12px;
+    font-size: 0.84rem;
+  }
+
+  .video-btn-skip {
+    width: 100%;
+    text-align: center;
+    font-size: 0.8rem;
+    padding: 4px;
+    margin-top: 2px;
+  }
+
+  .video-float-replay-btn {
+    bottom: 20px;
+    left: 16px;
+    padding: 10px 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .video-modal-backdrop {
+    padding: 0.35rem;
+  }
+
+  .video-modal-card {
+    max-width: calc(100vw - 0.7rem);
+  }
+
+  .video-float-label {
+    display: none;
+  }
+
+  .video-float-replay-btn {
+    padding: 12px;
+    border-radius: 50%;
+  }
+}

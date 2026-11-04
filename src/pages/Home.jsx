@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { 
-  MapPin, Bed, Users, Tag, Landmark, Maximize, Utensils, Clock, ArrowRight, ShieldCheck 
+  MapPin, Bed, Users, Tag, Landmark, Maximize, Utensils, Clock, ArrowRight, ShieldCheck, Play 
 } from 'lucide-react';
 import BookingBar from '../components/BookingBar';
 import SectionHeading from '../components/SectionHeading';
@@ -10,7 +10,7 @@ import ExploreSection from '../components/ExploreSection';
 import TestimonialSection from '../components/TestimonialSection';
 import { hotelInfo, roomsData } from '../data/hotelData';
 
-export default function Home({ onOpenBooking, onSearchBooking }) {
+export default function Home({ onOpenBooking, onSearchBooking, onOpenVideoTour }) {
   return (
     <main>
       {/* -------------------------------------------------------------
@@ -31,6 +31,21 @@ export default function Home({ onOpenBooking, onSearchBooking }) {
             <p className="hero-subtitle">
               {hotelInfo.subtitle} — Peaceful ambiance, clean spacious rooms, and pure vegetarian hospitality just moments from Ramanathaswamy Temple.
             </p>
+
+            {/* Watch Video Tour Quick Action */}
+            {onOpenVideoTour && (
+              <div style={{ marginBottom: '1.25rem' }}>
+                <button 
+                  type="button" 
+                  onClick={onOpenVideoTour}
+                  className="hero-video-tour-btn"
+                  aria-label="Watch MKT Shanthi Nivas Hotel Video Tour"
+                >
+                  <Play size={13} fill="currentColor" />
+                  <span>Watch Hotel Video Tour</span>
+                </button>
+              </div>
+            )}
 
             {/* 4 Benefit Indicators (Matching Reference) */}
             <div className="hero-benefits-row">

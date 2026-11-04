@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import BookingModal from './components/BookingModal';
+import WelcomeVideoModal from './components/WelcomeVideoModal';
+import VideoReplayButton from './components/VideoReplayButton';
 import WhatsAppWidget from './components/WhatsAppWidget';
 import Home from './pages/Home';
 import Rooms from './pages/Rooms';
@@ -23,6 +25,29 @@ function AppContent() {
 
   const [bookingModalOpen, setBookingModalOpen] = useState(false);
   const [bookingInitialData, setBookingInitialData] = useState({});
+  const [videoModalOpen, setVideoModalOpen] = useState(false);
+
+  // Auto-open video popup whenever the site opens or is refreshed
+  useEffect(() => {
+    if (isAdminRoute) return;
+
+    // Clear any previous session suppression so refresh always shows the popup
+    sessionStorage.removeItem('mkt_welcome_video_shown');
+
+    const timer = setTimeout(() => {
+      setVideoModalOpen(true);
+    }, 750); // Clean 750ms delay for smooth page paint before popup appears
+
+    return () => clearTimeout(timer);
+  }, [isAdminRoute]);
+
+  const handleCloseVideoModal = () => {
+    setVideoModalOpen(false);
+  };
+
+  const handleOpenVideoModal = () => {
+    setVideoModalOpen(true);
+  };
 
   const handleOpenBooking = (roomId = 'executive-double', extraData = {}) => {
     setBookingInitialData({ roomId, ...extraData });
@@ -47,6 +72,7 @@ function AppContent() {
             <Home 
               onOpenBooking={handleOpenBooking} 
               onSearchBooking={handleSearchBooking} 
+              onOpenVideoTour={handleOpenVideoModal}
             />
           } 
         />
@@ -98,6 +124,22 @@ function AppContent() {
           initialData={bookingInitialData} 
         />
       )}
+
+      {/* Welcome Video Popup Modal */}
+      {!isAdminRoute && (
+        <WelcomeVideoModal 
+          isOpen={videoModalOpen} 
+          onClose={handleCloseVideoModal} 
+          onOpenBooking={() => handleOpenBooking()} 
+          videoSrc="/assets/videos/1104.mp4" 
+        />
+      )}
+
+      {/* Floating Replay Tour Button (bottom-left, balances WhatsApp widget) */}
+      {!isAdminRoute && !videoModalOpen && (
+        <VideoReplayButton onClick={handleOpenVideoModal} />
+      )}
+
       {/* Floating WhatsApp Widget */}
       {!isAdminRoute && <WhatsAppWidget />}
     </div>

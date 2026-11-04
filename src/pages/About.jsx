@@ -75,7 +75,7 @@ export default function About({ onOpenBooking }) {
               }}>
                 <Landmark size={28} color="var(--primary)" />
                 <div>
-                  <div style={{ fontWeight: 700, color: 'var(--dark)', fontSize: '0.95rem' }}>3-Min Walk</div>
+                  <div style={{ fontWeight: 700, color: 'var(--dark)', fontSize: '0.95rem' }}>1-Min Walk (50m)</div>
                   <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>To Ramanathaswamy Temple</div>
                 </div>
               </div>

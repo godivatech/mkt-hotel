@@ -17,7 +17,7 @@ export default function Footer({ onOpenBooking }) {
             </p>
             <div style={{ marginTop: '1.25rem', display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
               <span className="badge" style={{ backgroundColor: 'rgba(218,155,90,0.2)', color: '#F3C082' }}>
-                <Landmark size={13} /> 250m to Temple
+                <Landmark size={13} /> 50m to Temple
               </span>
               <span className="badge" style={{ backgroundColor: 'rgba(255,255,255,0.1)', color: '#FFFFFF' }}>
                 <ShieldCheck size={13} /> Pure Vegetarian

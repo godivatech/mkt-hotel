@@ -228,7 +228,7 @@ export const destinationsData = [
   {
     id: "temple",
     name: "Ramanathaswamy Temple",
-    distance: "300 meters (4 min walk)",
+    distance: "50 meters (1 min walk)",
     image: "/assets/images/hero-temple.jpg",
     tagline: "Sacred Jyotirlinga & Iconic 1000-Pillar Hall",
     description: "One of the 12 sacred Jyotirlinga temples in India, renowned for having the longest corridor of intricately carved stone pillars in the world and 22 holy theerthams (water wells) where pilgrims take ritual purification baths."
@@ -339,7 +339,7 @@ export const galleryItems = [
 export const faqData = [
   {
     q: "How far is MKT Shanthi Nivas from Ramanathaswamy Temple?",
-    a: "We are located at 93 Middle Street, which is just about 250 to 300 meters from the Ramanathaswamy Temple — approximately a convenient 3-minute walking distance. You can easily walk to the temple gates without relying on transport."
+    a: "We are located at 93 Middle Street, which is just 50 meters from the Ramanathaswamy Temple — approximately a convenient 1-minute walking distance. You can easily walk to the temple gates without relying on transport."
   },
   {
     q: "Is 24-hour hot water available for early morning holy bath rituals?",

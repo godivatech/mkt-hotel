@@ -147,7 +147,7 @@ export default function Contact() {
                     {hotelInfo.address.city}, {hotelInfo.address.state} - {hotelInfo.address.pincode}
                   </p>
                   <span style={{ fontSize: '0.8rem', color: 'var(--primary)', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '4px', marginTop: '0.4rem' }}>
-                    <Landmark size={14} /> 250m to Ramanathaswamy Temple (3-min walk)
+                    <Landmark size={14} /> 50m to Ramanathaswamy Temple (1-min walk)
                   </span>
                 </div>
               </div>

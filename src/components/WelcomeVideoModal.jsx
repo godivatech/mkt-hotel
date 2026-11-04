@@ -331,7 +331,7 @@ export default function WelcomeVideoModal({
         <div className="video-modal-footer">
           <div className="video-modal-perks">
             <span className="video-perk-item">
-              <Landmark size={14} /> 250m to Temple
+              <Landmark size={14} /> 50m to Temple
             </span>
             <span className="video-perk-item">
               <ShieldCheck size={14} /> Clean AC Rooms

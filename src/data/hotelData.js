@@ -280,7 +280,7 @@ export const diningData = {
       id: "interior",
       title: "Air-Conditioned Dining Hall",
       category: "Ambiance",
-      image: "/assets/images/restaurant-interior.jpg",
+      image: "/assets/images/Dining/Warmly lit classic restaurant interior.png",
       description: "Warm wooden furnishings, pleasant ambient lighting, and welcoming hospitality catering to both quick meals and leisurely family dinners."
     }
   ]
@@ -330,11 +330,10 @@ export const galleryItems = [
   { id: 14, title: "Modern Restroom with Wall-Hung WC", category: "Restrooms", image: "/assets/images/mkt-bathroom-wc.png" },
   { id: 15, title: "Traditional South Indian Breakfast Tiffin", category: "Dining", image: "/assets/images/dining-spread.jpg" },
   { id: 16, title: "Wholesome South Indian Vegetarian Thali", category: "Dining", image: "/assets/images/dining-thali.jpg" },
-  { id: 17, title: "Vegetarian Dining Hall", category: "Dining", image: "/assets/images/restaurant-interior.jpg" },
-  { id: 18, title: "Warmly Lit Classic Restaurant Interior", category: "Dining", image: "/assets/images/Dining/Warmly lit classic restaurant interior.png" },
-  { id: 19, title: "Ramanathaswamy Temple at Dusk", category: "Nearby Places", image: "/assets/images/hero-temple.jpg" },
-  { id: 20, title: "Iconic Pamban Cantilever Sea Bridge", category: "Nearby Places", image: "/assets/images/pamban-bridge.jpg" },
-  { id: 21, title: "Dhanushkodi Coastal Sands & Beach", category: "Nearby Places", image: "/assets/images/dhanushkodi.jpg" }
+  { id: 17, title: "Warmly Lit Classic Restaurant Interior", category: "Dining", image: "/assets/images/Dining/Warmly lit classic restaurant interior.png" },
+  { id: 18, title: "Ramanathaswamy Temple at Dusk", category: "Nearby Places", image: "/assets/images/hero-temple.jpg" },
+  { id: 19, title: "Iconic Pamban Cantilever Sea Bridge", category: "Nearby Places", image: "/assets/images/pamban-bridge.jpg" },
+  { id: 20, title: "Dhanushkodi Coastal Sands & Beach", category: "Nearby Places", image: "/assets/images/dhanushkodi.jpg" }
 ];
 
 export const faqData = [

@@ -46,10 +46,10 @@ export default function Footer({ onOpenBooking }) {
               <Link to="/rooms/executive-double" className="footer-link">Executive Double</Link>
               <Link to="/rooms/executive-four-fold" className="footer-link">Executive Four Fold</Link>
               <Link to="/rooms/family-suite" className="footer-link">Family Suite</Link>
-              <button 
-                type="button" 
-                onClick={onOpenBooking} 
-                className="footer-link" 
+              <button
+                type="button"
+                onClick={onOpenBooking}
+                className="footer-link"
                 style={{ textAlign: 'left', color: 'var(--accent)', fontWeight: 600, marginTop: '0.5rem' }}
               >
                 Check Live Availability →
@@ -96,10 +96,10 @@ export default function Footer({ onOpenBooking }) {
             <span>93 Middle Street, Rameswaram</span>
             <span>
               Design and Developed by{' '}
-              <a 
-                href="https://godivatech.com" 
-                target="_blank" 
-                rel="noopener noreferrer" 
+              <a
+                href="https://godivatech.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 style={{ color: '#DA9B5A', fontWeight: 600, textDecoration: 'none', transition: 'color 0.2s' }}
                 onMouseEnter={(e) => e.target.style.color = '#FFFFFF'}
                 onMouseLeave={(e) => e.target.style.color = '#DA9B5A'}
